@@ -130,7 +130,9 @@ class ProductController extends Controller
                 DB::raw('MAX(v.sell_price_inc_tax) as max_price'),
                 DB::raw('MIN(v.sell_price_inc_tax) as min_price'),
                 DB::raw('MAX(v.dpp_inc_tax) as max_purchase_price'),
-                DB::raw('MIN(v.dpp_inc_tax) as min_purchase_price')
+                DB::raw('MIN(v.dpp_inc_tax) as min_purchase_price'),
+                 DB::raw('MIN(v.default_purchase_price) as unit_default_price'),
+                DB::raw('MIN(v.mrp_exc_tax) as mrp_default_price'),
                 );
 
             //if woocomerce enabled add field to query
@@ -505,7 +507,7 @@ class ProductController extends Controller
             }
 
             if ($product->type == 'single') {
-                $this->productUtil->createSingleProductVariation($product->id, $product->sku, $request->input('single_dpp'), $request->input('single_dpp_inc_tax'), $request->input('profit_percent'), $request->input('single_dsp'), $request->input('single_dsp_inc_tax'));
+                $this->productUtil->createSingleProductVariation($product->id, $product->sku, $request->input('single_dpp'), $request->input('single_dpp_inc_tax'), $request->input('profit_percent'), $request->input('single_dsp'), $request->input('single_dsp_inc_tax'),[],$request->input('mrp_exc_tax'),$request->input('mrp_inc_tax'),$request->input('discount'));
             } elseif ($product->type == 'variable') {
                 if (! empty($request->input('product_variation'))) {
                     $input_variations = $request->input('product_variation');

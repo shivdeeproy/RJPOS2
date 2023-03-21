@@ -10,6 +10,7 @@ return [
     | The following language lines are used for Brand CRUD operations.
     |
     */
+    'total_tax'=>'Total Tax',
 
     'sale' => 'Sell',
     'sells' => 'Sales',
