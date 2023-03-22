@@ -503,6 +503,8 @@ class ProductUtil extends Util
             'pv.name as product_variation_name',
             'pv.is_dummy as is_dummy',
             'variations.name as variation_name',
+            'variations.mrp_inc_tax',
+            'variations.discount',
             'variations.sub_sku',
             'p.barcode_type',
             'vld.qty_available',
