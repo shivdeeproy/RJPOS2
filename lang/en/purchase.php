@@ -10,6 +10,9 @@ return [
     | The following language lines are used for Purchase screens
     |
     */
+    'total_without_tax'=>'Total (Exc. tax)',
+    'tax'=>'Tax',
+    'line_taxes'=>'Line Taxes',
     'purchase_line_taxes'=>'Purchase Line Taxes',
      'mrp_inc_tax'=>'MRP (Inc. tax)',
      'discount_on_mrp'=>'Discount % on MRP',

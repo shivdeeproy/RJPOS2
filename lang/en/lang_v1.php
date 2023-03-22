@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'tax'=>'Tax',
+    'total_without_tax'=>'Total (Exc. tax)',
     'enable_editing_product_from_purchase' => 'Enable editing product price from purchase screen',
     'sales_commission_agent' => 'Sales Commission Agent',
     'sales_commission_agents' => 'Sales Commission Agents',

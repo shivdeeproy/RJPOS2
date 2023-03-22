@@ -247,11 +247,15 @@
 
                 endif;
 
+              if($purchase_line->tax_id):
+
               $tax_lines_array[$purchase_line->tax_id]['name']=$taxes[$purchase_line->tax_id];
 
 
               $tax_lines_array[$purchase_line->tax_id]['amount']=$purchase_line->item_tax;
 
+
+              endif;
 
               endif;
 
