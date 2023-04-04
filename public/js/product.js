@@ -52,16 +52,18 @@ $(document).ready(function() {
         var selling_price_inc_tax=__read_number($('input#single_dsp_inc_tax'));
         selling_price_inc_tax = selling_price_inc_tax == undefined ? 0 : selling_price_inc_tax;
 
-        var discount=discount_amount=0;
+        // var discount=discount_amount=0;
 
-        if(selling_price_inc_tax)
-        {
-            discount_amount=mrp_inc_tax-selling_price_inc_tax;
-            discount=discount_amount/selling_price_inc_tax*100;
-         //   console.log(discount);
-        }
+        // if(selling_price_inc_tax)
+        // {
+        //     discount_amount=mrp_inc_tax-selling_price_inc_tax;
+        //     discount=discount_amount/selling_price_inc_tax*100;
+        //  //   console.log(discount);
+        // }
 
-        __write_number($('input#discount'), discount);
+        // __write_number($('input#discount'), discount);
+
+        setDiscountMargin();
 
 
     });
@@ -78,7 +80,7 @@ $(document).ready(function() {
 
         var mrp_exc_tax = __get_principle(mrp_inc_tax, tax_rate);
         __write_number($('input#mrp_exc_tax'), mrp_exc_tax);
-        $('input#mrp_exc_tax').change();
+        //$('input#mrp_exc_tax').change();
 
         // var profit_percent = __read_number($('#profit_percent'));
         // profit_percent = profit_percent == undefined ? 0 : profit_percent;
@@ -87,6 +89,8 @@ $(document).ready(function() {
 
         // var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
         // __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+        setDiscountMargin();
+
     });
 
     //If purchase price exc tax is changed
@@ -108,7 +112,70 @@ $(document).ready(function() {
 
         var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
         __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+
+        setDiscountMargin();
     });
+
+    function makeSpecialNumber(price)
+    {
+        var lastDigit = price % 10;
+       
+        if(lastDigit==9)
+        {
+             __write_number($('input#single_dsp_inc_tax'), price);
+
+             var selling_price=__read_number($('input#single_dsp'));
+             var purchase_exc_tax=__read_number($('input#single_dpp'));
+             var mrp_exc_tax=__read_number($('#mrp_exc_tax'));
+
+
+
+           var profit_percent = __get_rate(purchase_exc_tax, selling_price);
+
+             __write_number($('#profit_percent'), profit_percent);
+
+             if(mrp_exc_tax){
+
+        //        var discount=discount_amount=0;
+
+        // if(selling_price)
+        // {
+        //     discount_amount=mrp_exc_tax-selling_price;
+        //     discount=discount_amount/selling_price*100;
+        //  //   console.log(discount);
+        // }
+           var discount = __get_rate(selling_price, mrp_exc_tax);
+             
+             __write_number($('#discount'), discount);
+
+             }
+
+
+
+        }
+        else if(lastDigit >=5)
+        {
+           price++;
+           makeSpecialNumber(price);
+        }
+        else if(lastDigit < 5)
+        {
+            price--;
+            makeSpecialNumber(price);
+        }
+    }
+
+    function setDiscountMargin()
+    {
+        var selling_price_inc_tax=__read_number($('input#single_dsp_inc_tax'));
+        if(selling_price_inc_tax){
+            selling_price_inc_tax=selling_price_inc_tax.toFixed(0);
+           
+            console.log(selling_price_inc_tax);
+            makeSpecialNumber(selling_price_inc_tax);
+
+        }
+    }
 
     //If tax rate is changed
     $(document).on('change', 'select#tax', function() {
@@ -129,6 +196,7 @@ $(document).ready(function() {
             __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
             $('#mrp_exc_tax').change();
         }
+
     });
 
     //If purchase price inc tax is changed
@@ -152,6 +220,8 @@ $(document).ready(function() {
 
         var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
         __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+        setDiscountMargin();
+
     });
 
     $(document).on('change', 'input#profit_percent', function(e) {
@@ -172,6 +242,9 @@ $(document).ready(function() {
 
         var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
         __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+
+        setDiscountMargin();
+
     });
 
     $(document).on('change', 'input#single_dsp', function(e) {
@@ -195,6 +268,9 @@ $(document).ready(function() {
 
         var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
         __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+
+        setDiscountMargin();
+
     });
 
     $(document).on('change', 'input#single_dsp_inc_tax', function(e) {
@@ -217,6 +293,9 @@ $(document).ready(function() {
         }
 
         __write_number($('input#profit_percent'), profit_percent);
+
+        setDiscountMargin();
+
     });
 
     if ($('#product_add_form').length) {
