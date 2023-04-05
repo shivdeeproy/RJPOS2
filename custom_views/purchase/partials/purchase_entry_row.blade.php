@@ -89,7 +89,10 @@
                 required>
             @endif
         </td>
-        <td>{!! Form::text('purchases['.$row_count.'][mrp_inc_tax]',$variation->mrp_inc_tax,['class'=>'form-control input-sm mrp_inc_tax input number mousetrap']) !!}</td>
+        <td>{!! Form::text('purchases['.$row_count.'][mrp_inc_tax]',$variation->mrp_inc_tax,['class'=>'form-control input-sm mrp_inc_tax input number mousetrap']) !!}
+            {!! Form::hidden('purchases['.$row_count.'][mrp_exc_tax]',$variation->mrp_exc_tax,['class'=>'form-control input-sm mrp_exc_tax input number mousetrap']) !!}
+
+        </td>
         <td>
             @php
                 $pp_without_discount = !empty($purchase_order_line) ? $purchase_order_line->pp_without_discount/$purchase_order->exchange_rate : $variation->default_purchase_price;

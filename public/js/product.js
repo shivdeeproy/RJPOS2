@@ -136,15 +136,14 @@ $(document).ready(function() {
 
              if(mrp_exc_tax){
 
-        //        var discount=discount_amount=0;
+        var discount=discount_amount=0;
 
-        // if(selling_price)
-        // {
-        //     discount_amount=mrp_exc_tax-selling_price;
-        //     discount=discount_amount/selling_price*100;
-        //  //   console.log(discount);
-        // }
-           var discount = __get_rate(selling_price, mrp_exc_tax);
+        if(selling_price)
+        {
+            discount_amount=mrp_exc_tax-selling_price;
+            discount=discount_amount/mrp_exc_tax*100;
+         //   console.log(discount);
+        }
              
              __write_number($('#discount'), discount);
 
