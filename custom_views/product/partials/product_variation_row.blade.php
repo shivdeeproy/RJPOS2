@@ -27,6 +27,11 @@
             <tr>
                 <th>@lang('product.sku') @show_tooltip(__('tooltip.sub_sku'))</th>
                 <th>@lang('product.value')</th>
+                 <th style="width:22%;text-align: center;">@lang('product.default_mrp_price')
+                   <br/>
+                    <span class="pull-left"><small><i>@lang('product.exc_of_tax')</i></small></span>
+
+                    <span class="pull-right"><small><i>@lang('product.inc_of_tax')</i></small></span></th>
                 <th class="{{$class}}">@lang('product.default_purchase_price')
                     <br/>
                     <span class="pull-left"><small><i>@lang('product.exc_of_tax')</i></small></span>
@@ -34,6 +39,7 @@
                     <span class="pull-right"><small><i>@lang('product.inc_of_tax')</i></small></span>
                 </th>
                 <th class="{{$class}}">@lang('product.profit_percent')</th>
+                   <th>@lang('product.discount')</th>
                 <th class="{{$class}}">@lang('product.default_selling_price')
                 <br/>
                 <small><i><span class="dsp_label"></span></i></small>
@@ -51,6 +57,18 @@
                 </td>
                 <td>
                     {!! Form::text('product_variation[' . $row_index .'][variations][0][value]', null, ['class' => 'form-control input-sm variation_value_name', 'required']); !!}
+                </td>
+                   <td class="{{$class}}">
+                    <div class="width-50 f-left">
+                        {!! Form::text('product_variation[' . $row_index .'][variations][0][mrp_exc_tax]', $default, ['class' => 'form-control input-sm variable_mrp_exc_tax input_number', 'placeholder' => __('product.mrp_exc_tax'), 'required']); !!}
+                    </div>
+
+                    <div class="width-50 f-left">
+                        <div class="input-group">
+                            {!! Form::text('product_variation[' . $row_index .'][variations][0][mrp_inc_tax]', $default, ['class' => 'form-control input-sm variable_mrp_inc_tax input_number', 'placeholder' => __('product.mrp_inc_tax'), 'required']); !!}
+                   
+                        </div>
+                    </div>
                 </td>
                 <td class="{{$class}}">
                     <div class="width-50 f-left">
@@ -75,12 +93,18 @@
                         </span>
                     </div>
                 </td>
+                  <td class="">
+                    <div class="input-group">
+                        {!! Form::text('product_variation[' . $row_index .'][variations][0][discount]',0, ['class' => 'form-control input-sm variable_discount input_number', 'required']); !!}
+
+                    </div>
+                </td>
                 <td class="{{$class}}">
                     {!! Form::text('product_variation[' . $row_index .'][variations][0][default_sell_price]', $default, ['class' => 'form-control input-sm variable_dsp input_number', 'placeholder' => __('product.exc_of_tax'), 'required']); !!}
 
                      {!! Form::text('product_variation[' . $row_index .'][variations][0][sell_price_inc_tax]', $default, ['class' => 'form-control input-sm variable_dsp_inc_tax input_number', 'placeholder' => __('product.inc_of_tax'), 'required']); !!}
                 </td>
-                <td>{!! Form::file('variation_images_' . $row_index .'_0[]', ['class' => 'variation_images', 
+                <td>{!! Form::file('variation_images_' . $row_index .'_0[]', ['class' => 'variation_images','style'=>'width:100%;', 
                     'accept' => 'image/*', 'multiple']); !!}</td>
                 <td>
                     <button type="button" class="btn btn-danger btn-xs remove_variation_value_row">-</button>

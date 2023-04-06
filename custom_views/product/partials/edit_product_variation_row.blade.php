@@ -37,13 +37,19 @@
             <tr>
                 <th>@lang('product.sku') @show_tooltip(__('tooltip.sub_sku'))</th>
                 <th>@lang('product.value')</th>
-                <th class="{{$class}}">@lang('product.default_purchase_price') 
+                  <th style="width:22%;text-align: center;">@lang('product.default_mrp_price')
+                   <br/>
+                    <span class="pull-left"><small><i>@lang('product.exc_of_tax')</i></small></span>
+
+                    <span class="pull-right"><small><i>@lang('product.inc_of_tax')</i></small></span></th>
+                <th class="{{$class}}" style="width:22%">@lang('product.default_purchase_price') 
                     <br/>
                     <span class="pull-left"><small><i>@lang('product.exc_of_tax')</i></small></span>
 
                     <span class="pull-right"><small><i>@lang('product.inc_of_tax')</i></small></span>
                 </th>
                 <th class="{{$class}}">@lang('product.profit_percent')</th>
+                 <th>@lang('product.discount')</th>
                 <th class="{{$class}}">@lang('product.default_selling_price') 
                 <br/>
                 <small><i><span class="dsp_label"></span></i></small>
@@ -76,6 +82,16 @@
 
                         {!! Form::hidden($array_name . '[' . $row_index .'][' . $variation_array_name . '][' . $variation_row_index . '][variation_value_id]', $variation->variation_value_id); !!}
                     </td>
+                     <td class="">
+                        <div class="col-sm-6">
+                            {!! Form::text($array_name . '[' . $row_index .'][' . $variation_array_name . '][' . $variation_row_index . '][mrp_exc_tax]', @num_format($variation->mrp_exc_tax), ['class' => 'form-control input-sm variable_mrp_exc_tax input_number', 'placeholder' => __('product.mrp_exc_tax'), 'required']); !!}
+                        </div>
+
+                        <div class="col-sm-6">
+                            {!! Form::text($array_name . '[' . $row_index .'][' . $variation_array_name . '][' . $variation_row_index . '][mrp_inc_tax]', @num_format($variation->mrp_inc_tax), ['class' => 'form-control input-sm variable_mrp_inc_tax input_number', 'placeholder' => __('product.mrp_inc_tax'), 'required']); !!}
+                        </div>
+                    </td>
+
                     <td class="{{$class}}">
                         <div class="col-sm-6">
                             {!! Form::text($array_name . '[' . $row_index .'][' . $variation_array_name . '][' . $variation_row_index . '][default_purchase_price]', @num_format($variation->default_purchase_price), ['class' => 'form-control input-sm variable_dpp input_number', 'placeholder' => __('product.exc_of_tax'), 'required']); !!}
@@ -87,6 +103,9 @@
                     </td>
                     <td class="{{$class}}">
                         {!! Form::text($array_name . '[' . $row_index .'][' . $variation_array_name . '][' . $variation_row_index . '][profit_percent]', @num_format($variation->profit_percent), ['class' => 'form-control input-sm variable_profit_percent input_number', 'required']); !!}
+                    </td>
+                      <td class="">
+                        {!! Form::text($array_name . '[' . $row_index .'][' . $variation_array_name . '][' . $variation_row_index . '][discount]', @num_format($variation->discount), ['class' => 'form-control input-sm variable_discount input_number', 'required']); !!}
                     </td>
                     <td class="{{$class}}">
                         {!! Form::text($array_name . '[' . $row_index .'][' . $variation_array_name . '][' . $variation_row_index . '][default_sell_price]', @num_format($variation->default_sell_price), ['class' => 'form-control input-sm variable_dsp input_number', 'placeholder' => __('product.exc_of_tax'), 'required']); !!}
@@ -105,10 +124,10 @@
                                 </div>
                             @endforeach
                             {!! Form::file('edit_variation_images_' . $row_index . '_' . $variation_row_index . '[]',
-                                 ['class' => 'variation_images', 'accept' => 'image/*', 'multiple']); !!}
+                                 ['class' => 'variation_images', 'accept' => 'image/*', 'multiple','style'=>'width:100%;']); !!}
                         @else
                             {!! Form::file('edit_variation_images_' . $row_index . '_' . $variation_row_index . '[]', 
-                                ['class' => 'variation_images', 'accept' => 'image/*', 'multiple']); !!}
+                                ['class' => 'variation_images', 'accept' => 'image/*', 'multiple','style'=>'width:100%;']); !!}
                         @endif
                     </td>
                     <td>

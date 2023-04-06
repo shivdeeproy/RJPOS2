@@ -36,7 +36,7 @@ class ProductUtil extends Util
      * @param $combo_variations = []
      * @return bool
      */
-    public function createSingleProductVariation($product, $sku, $purchase_price, $dpp_inc_tax, $profit_percent, $selling_price, $selling_price_inc_tax, $combo_variations = [],$mrp_exc_tax,$mrp_inc_tax,$discount)
+    public function createSingleProductVariation($product, $sku, $purchase_price, $dpp_inc_tax, $profit_percent, $selling_price, $selling_price_inc_tax, $combo_variations = [],$mrp_exc_tax='',$mrp_inc_tax='',$discount='')
     {
         if (! is_object($product)) {
             $product = Product::find($product);
@@ -60,9 +60,9 @@ class ProductUtil extends Util
             'default_sell_price' => $this->num_uf($selling_price),
             'sell_price_inc_tax' => $this->num_uf($selling_price_inc_tax),
             'combo_variations' => $combo_variations,
-            'discount'=>$discount,
-                'mrp_exc_tax'=>$mrp_exc_tax,
-                'mrp_inc_tax'=>$mrp_inc_tax,
+            'discount'=>$this->num_uf($discount),
+               'mrp_exc_tax'=>$this->num_uf($mrp_exc_tax),
+                'mrp_inc_tax'=>$this->num_uf($mrp_inc_tax),
         ];
         $variation = $product_variation->variations()->create($variation_data);
 
@@ -170,6 +170,10 @@ class ProductUtil extends Util
                         'profit_percent' => $this->num_uf($v['profit_percent']),
                         'default_sell_price' => $this->num_uf($v['default_sell_price']),
                         'sell_price_inc_tax' => $this->num_uf($v['sell_price_inc_tax']),
+                        'mrp_inc_tax'=>$this->num_uf($v['mrp_inc_tax']),
+                        'mrp_exc_tax'=>$this->num_uf($v['mrp_exc_tax']),
+                        'discount'=>$this->num_uf($v['discount']),
+
                     ];
                     $c++;
                     $images[] = 'variation_images_'.$key.'_'.$k;
@@ -217,6 +221,9 @@ class ProductUtil extends Util
                         'profit_percent' => $this->num_uf($v['profit_percent']),
                         'default_sell_price' => $this->num_uf($v['default_sell_price']),
                         'sell_price_inc_tax' => $this->num_uf($v['sell_price_inc_tax']),
+                         'mrp_inc_tax'=>$this->num_uf($v['mrp_inc_tax']),
+                        'mrp_exc_tax'=>$this->num_uf($v['mrp_exc_tax']),
+                        'discount'=>$this->num_uf($v['discount']),
                     ];
                     if (! empty($v['sub_sku'])) {
                         $data['sub_sku'] = $v['sub_sku'];
@@ -270,6 +277,9 @@ class ProductUtil extends Util
                         'profit_percent' => $this->num_uf($v['profit_percent']),
                         'default_sell_price' => $this->num_uf($v['default_sell_price']),
                         'sell_price_inc_tax' => $this->num_uf($v['sell_price_inc_tax']),
+                         'mrp_inc_tax'=>$this->num_uf($v['mrp_inc_tax']),
+                        'mrp_exc_tax'=>$this->num_uf($v['mrp_exc_tax']),
+                        'discount'=>$this->num_uf($v['discount']),
                     ];
                     $c++;
                     $media[] = 'variation_images_'.$key.'_'.$k;

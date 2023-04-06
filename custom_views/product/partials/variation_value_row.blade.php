@@ -37,6 +37,18 @@
     <td>
         {!! Form::text($name . '[' . $variation_index . '][variations][' . $value_index . '][value]', $variation_name, ['class' => 'form-control input-sm variation_value_name', 'required', $readonly]); !!}
     </td>
+     <td class="{{$class}}">
+                    <div class="width-50 f-left">
+                        {!! Form::text($name.'[' . $variation_index .'][variations][' . $value_index . '][mrp_exc_tax]', $default, ['class' => 'form-control input-sm variable_mrp_exc_tax input_number', 'placeholder' => __('product.mrp_exc_tax'), 'required']); !!}
+                    </div>
+
+                    <div class="width-50 f-left">
+                        <div class="input-group">
+                            {!! Form::text($name.'[' . $variation_index .'][variations][' . $value_index . '][mrp_inc_tax]', $default, ['class' => 'form-control input-sm variable_mrp_inc_tax input_number', 'placeholder' => __('product.mrp_inc_tax'), 'required']); !!}
+                   
+                        </div>
+                    </div>
+                </td>
     <td class="{{$class}}">
         <div class="width-50 f-left">
             {!! Form::text($name . '[' . $variation_index . '][variations][' . $value_index . '][default_purchase_price]', $default, ['class' => 'form-control input-sm variable_dpp input_number', 'placeholder' => __('product.exc_of_tax'), 'required']); !!}
@@ -63,13 +75,19 @@
             @endif
         </div>
     </td>
+     <td class="">
+                    <div class="input-group">
+                        {!! Form::text($name.'[' . $variation_index .'][variations]['.$value_index.'][discount]',0, ['class' => 'form-control input-sm variable_discount input_number', 'required']); !!}
+
+                    </div>
+                </td>
     <td class="{{$class}}">
         {!! Form::text($name . '[' . $variation_index . '][variations][' . $value_index . '][default_sell_price]', $default, ['class' => 'form-control input-sm variable_dsp input_number', 'placeholder' => __('product.exc_of_tax'), 'required']); !!}
 
         {!! Form::text($name . '[' . $variation_index . '][variations][' . $value_index . '][sell_price_inc_tax]', $default, ['class' => 'form-control input-sm variable_dsp_inc_tax input_number', 'placeholder' => __('product.inc_of_tax'), 'required']); !!}
     </td>
     <td>{!! Form::file('variation_images_' . $variation_index . '_' . $value_index . '[]', ['class' => 
-        'variation_images', 'accept' => 'image/*', 'multiple']); !!}</td>
+        'variation_images', 'accept' => 'image/*', 'multiple','style'=>'width:100%']); !!}</td>
     <td>
         <button type="button" class="btn btn-danger btn-xs remove_variation_value_row">-</button>
         <input type="hidden" class="variation_row_index" value="{{$value_index}}">
