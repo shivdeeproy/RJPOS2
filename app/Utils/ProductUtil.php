@@ -519,6 +519,7 @@ class ProductUtil extends Util
             'p.barcode_type',
             'vld.qty_available',
             'variations.default_sell_price',
+            'variations.dpp_inc_tax as default_purchase_price_inc_tax', 
             'variations.sell_price_inc_tax',
             'variations.id as variation_id',
             'variations.combo_variations',  //Used in combo products

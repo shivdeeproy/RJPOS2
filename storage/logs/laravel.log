@@ -1786,3 +1786,6 @@ Stack trace:
 #60 /opt/lampp/htdocs/GIT/RJPOS/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #61 {main}
 "} 
+[2023-04-22 11:08:46] local.EMERGENCY: File:/opt/lampp/htdocs/GIT/RJPOS/storage/framework/views/58b4e43225fdc1df2215b5c7f1e5d7419797030e.phpLine:84Message:syntax error, unexpected token "," (View: /opt/lampp/htdocs/GIT/RJPOS/custom_views/labels/partials/preview_3.blade.php)  
+[2023-04-22 11:09:02] local.EMERGENCY: File:/opt/lampp/htdocs/GIT/RJPOS/storage/framework/views/58b4e43225fdc1df2215b5c7f1e5d7419797030e.phpLine:84Message:syntax error, unexpected token "," (View: /opt/lampp/htdocs/GIT/RJPOS/custom_views/labels/partials/preview_3.blade.php)  
+[2023-04-22 11:09:13] local.EMERGENCY: File:/opt/lampp/htdocs/GIT/RJPOS/storage/framework/views/58b4e43225fdc1df2215b5c7f1e5d7419797030e.phpLine:84Message:syntax error, unexpected token "," (View: /opt/lampp/htdocs/GIT/RJPOS/custom_views/labels/partials/preview_3.blade.php)  
