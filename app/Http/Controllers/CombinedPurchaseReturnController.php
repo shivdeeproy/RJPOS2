@@ -11,6 +11,7 @@ use App\Utils\ProductUtil;
 use App\Utils\TransactionUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Contact;
 
 class CombinedPurchaseReturnController extends Controller
 {
@@ -75,6 +76,8 @@ class CombinedPurchaseReturnController extends Controller
         if (! auth()->user()->can('purchase.update')) {
             abort(403, 'Unauthorized action.');
         }
+
+
 
         try {
             DB::beginTransaction();
@@ -147,6 +150,26 @@ class CombinedPurchaseReturnController extends Controller
 
                 $purchase_return = Transaction::create($input_data);
                 $purchase_return->purchase_lines()->createMany($product_data);
+
+                
+
+                if(isset($request->save_and_debit_note)):
+
+                     $contact_id=$purchase_return->contact_id;
+
+                    if($contact_id && $purchase_return->final_total):
+
+                        $customer=Contact::find($contact_id);
+
+                        $customer->balance=$customer->balance+$purchase_return->final_total;
+
+                        $customer->save();
+
+                    endif;
+
+
+
+                endif;
 
                 //update payment status
                 $this->transactionUtil->updatePaymentStatus($purchase_return->id, $purchase_return->final_total);

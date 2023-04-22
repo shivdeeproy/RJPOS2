@@ -137,8 +137,10 @@
 		</div>
 	</div> <!--box end-->
 	<div class="row">
-		<div class="col-md-12">
-			<button type="button" id="submit_purchase_return_form" class="btn btn-primary pull-right btn-flat">@lang('messages.submit')</button>
+		<div class="col-md-12 text-right">
+			<button type="button" id="submit_purchase_return_form" class="btn btn-primary btn-flat">@lang('messages.submit')</button>
+
+			<input type="submit" id="submit_purchase_return_form" name="save_and_debit_note" class="btn btn-primary ml-3 btn-flat" value=" @lang('messages.save_and_debit_note')"/>
 		</div>
 	</div>
 	{!! Form::close() !!}
