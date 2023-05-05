@@ -75,7 +75,7 @@
 
 							@if(isset($page_product->default_purchase_price_inc_tax))
 							
-									 /{{round($page_product->default_purchase_price_inc_tax)}}-KLKV
+									 /KLKV
 							
 							@endif
 						</span>
