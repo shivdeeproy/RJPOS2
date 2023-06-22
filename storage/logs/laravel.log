@@ -2613,3 +2613,32 @@ Stack trace:
 #44 /opt/lampp/htdocs/GIT/RJPOS/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #45 {main}
 "} 
+[2023-06-22 08:49:59] production.ERROR: include(/opt/lampp/htdocs/GIT/rjpos23/vendor/composer/../nwidart/laravel-menus/src/MenusServiceProvider.php): Failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): include(/opt/lampp/htdocs/GIT/rjpos23/vendor/composer/../nwidart/laravel-menus/src/MenusServiceProvider.php): Failed to open stream: No such file or directory at /opt/lampp/htdocs/GIT/rjpos23/vendor/composer/ClassLoader.php:578)
+[stacktrace]
+#0 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/GIT/rjpos23/vendor/composer/ClassLoader.php(578): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /opt/lampp/htdocs/GIT/rjpos23/vendor/composer/ClassLoader.php(578): include('...')
+#3 /opt/lampp/htdocs/GIT/rjpos23/vendor/composer/ClassLoader.php(432): Composer\\Autoload\\ClassLoader::Composer\\Autoload\\{closure}()
+#4 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(750): Composer\\Autoload\\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(684): Illuminate\\Foundation\\Application->resolveProvider()
+#6 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#7 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(664): Illuminate\\Foundation\\ProviderRepository->load()
+#8 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#9 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(242): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#10 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith()
+#11 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#12 /opt/lampp/htdocs/GIT/rjpos23/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
+#13 {main}
+"} 
+[2023-06-22 08:50:46] production.ERROR: Class "Nwidart\Menus\MenusServiceProvider" not found {"exception":"[object] (Error(code: 0): Class \"Nwidart\\Menus\\MenusServiceProvider\" not found at /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php:206)
+[stacktrace]
+#0 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(142): Illuminate\\Foundation\\ProviderRepository->createProvider()
+#1 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(61): Illuminate\\Foundation\\ProviderRepository->compileManifest()
+#2 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(664): Illuminate\\Foundation\\ProviderRepository->load()
+#3 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#4 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(242): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#5 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith()
+#6 /opt/lampp/htdocs/GIT/rjpos23/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 /opt/lampp/htdocs/GIT/rjpos23/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
+#8 {main}
+"} 
