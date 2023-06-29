@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff
+class ComposerStaticInit51522d92146db1f38fe4f9ed3502b0da
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -579,8 +579,8 @@ class ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -668,8 +668,8 @@ class ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri/src',
-            1 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            0 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            1 => __DIR__ . '/..' . '/league/uri/src',
         ),
         'League\\OAuth2\\Server\\' => 
         array (
@@ -6321,6 +6321,21 @@ class ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff
         'NunoMaduro\\Collision\\Provider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Provider.php',
         'NunoMaduro\\Collision\\SolutionsRepositories\\NullSolutionsRepository' => __DIR__ . '/..' . '/nunomaduro/collision/src/SolutionsRepositories/NullSolutionsRepository.php',
         'NunoMaduro\\Collision\\Writer' => __DIR__ . '/..' . '/nunomaduro/collision/src/Writer.php',
+        'Nwidart\\Menus\\Facades\\Menu' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Facades/Menu.php',
+        'Nwidart\\Menus\\Menu' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Menu.php',
+        'Nwidart\\Menus\\MenuBuilder' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/MenuBuilder.php',
+        'Nwidart\\Menus\\MenuItem' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/MenuItem.php',
+        'Nwidart\\Menus\\MenusServiceProvider' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/MenusServiceProvider.php',
+        'Nwidart\\Menus\\Presenters\\Admin\\AdminltePresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Admin/AdminltePresenter.php',
+        'Nwidart\\Menus\\Presenters\\Bootstrap\\NavMenuPresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Bootstrap/NavMenuPresenter.php',
+        'Nwidart\\Menus\\Presenters\\Bootstrap\\NavPillsPresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Bootstrap/NavPillsPresenter.php',
+        'Nwidart\\Menus\\Presenters\\Bootstrap\\NavTabPresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Bootstrap/NavTabPresenter.php',
+        'Nwidart\\Menus\\Presenters\\Bootstrap\\NavbarPresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Bootstrap/NavbarPresenter.php',
+        'Nwidart\\Menus\\Presenters\\Bootstrap\\NavbarRightPresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Bootstrap/NavbarRightPresenter.php',
+        'Nwidart\\Menus\\Presenters\\Bootstrap\\SidebarMenuPresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Bootstrap/SidebarMenuPresenter.php',
+        'Nwidart\\Menus\\Presenters\\Foundation\\ZurbMenuPresenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Foundation/ZurbMenuPresenter.php',
+        'Nwidart\\Menus\\Presenters\\Presenter' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/Presenter.php',
+        'Nwidart\\Menus\\Presenters\\PresenterInterface' => __DIR__ . '/..' . '/nwidart/laravel-menus/src/Presenters/PresenterInterface.php',
         'Nwidart\\Modules\\Activators\\FileActivator' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Activators/FileActivator.php',
         'Nwidart\\Modules\\Collection' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Collection.php',
         'Nwidart\\Modules\\Commands\\CommandMakeCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/CommandMakeCommand.php',
@@ -12173,10 +12188,10 @@ class ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitaacbbc4795ee8a0088478b00943b77ff::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit51522d92146db1f38fe4f9ed3502b0da::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit51522d92146db1f38fe4f9ed3502b0da::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit51522d92146db1f38fe4f9ed3502b0da::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit51522d92146db1f38fe4f9ed3502b0da::$classMap;
 
         }, null, ClassLoader::class);
     }

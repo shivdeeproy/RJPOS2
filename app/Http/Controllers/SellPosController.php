@@ -727,10 +727,14 @@ class SellPosController extends Controller
         $invoice_layout_id = ! empty($invoice_layout_id) ? $invoice_layout_id : $location_details->invoice_layout_id;
         $invoice_layout = $this->businessUtil->invoiceLayout($business_id, $invoice_layout_id);
 
+    //    echo '<pre>';print_r($invoice_layout);die;
+
+
         //Check if printer setting is provided.
         $receipt_printer_type = is_null($printer_type) ? $location_details->receipt_printer_type : $printer_type;
 
         $receipt_details = $this->transactionUtil->getReceiptDetails($transaction_id, $location_id, $invoice_layout, $business_details, $location_details, $receipt_printer_type);
+
 
         $currency_details = [
             'symbol' => $business_details->currency_symbol,

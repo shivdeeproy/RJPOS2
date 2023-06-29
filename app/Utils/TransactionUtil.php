@@ -1987,6 +1987,7 @@ class TransactionUtil extends Util
                 'quantity' => $this->num_f($line->quantity, false, $business_details, true),
                 'quantity_uf' => $line->quantity,
                 'units' => $unit_name,
+                'mrp_inc_tax'=>$variation->mrp_inc_tax,
 
                 'base_unit_name' => $base_unit_name,
                 'base_unit_multiplier' => ! empty($line->multiplier) && $line->multiplier != 1 ? $this->num_f($line->multiplier, false, $business_details) : 1,
@@ -2013,6 +2014,7 @@ class TransactionUtil extends Util
                 'line_total_exc_tax' => $this->num_f($line->unit_price * $line->quantity, false, $business_details),
                 'line_total_exc_tax_uf' => $line->unit_price * $line->quantity,
                 'variation_id' => $variation->id,
+                'hsn'=>$product->product_custom_field2??'',
             ];
 
             $temp = [];
