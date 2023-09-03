@@ -1,4 +1,1 @@
-.env
-/vendor/
-/bootstrap/cache/
-/storage/
+/node_modules
