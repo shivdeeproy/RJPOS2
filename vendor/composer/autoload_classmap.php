@@ -30,6 +30,8 @@ return array(
     'AWS\\CRT\\OptionValue' => $vendorDir . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
     'AWS\\CRT\\Options' => $vendorDir . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
     'AddBatchUuidColumnToActivityLogTable' => $baseDir . '/database/migrations/2023_02_11_161511_add_batch_uuid_column_to_activity_log_table.php',
+    'AddColumnsToPurchaseLinesTable' => $baseDir . '/database/migrations/2023_02_22_102457_add_columns_to_purchase_lines_table.php',
+    'AddColumnsToVariationsTable' => $baseDir . '/database/migrations/2023_02_21_154646_add_columns_to_variations_table.php',
     'AddEventColumnToActivityLogTable' => $baseDir . '/database/migrations/2023_02_11_161510_add_event_column_to_activity_log_table.php',
     'Aloha\\Twilio\\Commands\\TwilioCallCommand' => $vendorDir . '/aloha/twilio/src/Commands/TwilioCallCommand.php',
     'Aloha\\Twilio\\Commands\\TwilioSmsCommand' => $vendorDir . '/aloha/twilio/src/Commands/TwilioSmsCommand.php',

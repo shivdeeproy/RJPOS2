@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc24849ce517e595851d0c0a3e2c94573
+class ComposerStaticInit214e3f80fbe33068885607f3c44ce861
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -585,8 +585,8 @@ class ComposerStaticInitc24849ce517e595851d0c0a3e2c94573
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -674,8 +674,8 @@ class ComposerStaticInitc24849ce517e595851d0c0a3e2c94573
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri/src',
-            1 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            0 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            1 => __DIR__ . '/..' . '/league/uri/src',
         ),
         'League\\OAuth2\\Server\\' => 
         array (
@@ -994,6 +994,8 @@ class ComposerStaticInitc24849ce517e595851d0c0a3e2c94573
         'AWS\\CRT\\OptionValue' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'AWS\\CRT\\Options' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'AddBatchUuidColumnToActivityLogTable' => __DIR__ . '/../..' . '/database/migrations/2023_02_11_161511_add_batch_uuid_column_to_activity_log_table.php',
+        'AddColumnsToPurchaseLinesTable' => __DIR__ . '/../..' . '/database/migrations/2023_02_22_102457_add_columns_to_purchase_lines_table.php',
+        'AddColumnsToVariationsTable' => __DIR__ . '/../..' . '/database/migrations/2023_02_21_154646_add_columns_to_variations_table.php',
         'AddEventColumnToActivityLogTable' => __DIR__ . '/../..' . '/database/migrations/2023_02_11_161510_add_event_column_to_activity_log_table.php',
         'Aloha\\Twilio\\Commands\\TwilioCallCommand' => __DIR__ . '/..' . '/aloha/twilio/src/Commands/TwilioCallCommand.php',
         'Aloha\\Twilio\\Commands\\TwilioSmsCommand' => __DIR__ . '/..' . '/aloha/twilio/src/Commands/TwilioSmsCommand.php',
@@ -12301,10 +12303,10 @@ class ComposerStaticInitc24849ce517e595851d0c0a3e2c94573
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc24849ce517e595851d0c0a3e2c94573::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc24849ce517e595851d0c0a3e2c94573::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitc24849ce517e595851d0c0a3e2c94573::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitc24849ce517e595851d0c0a3e2c94573::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit214e3f80fbe33068885607f3c44ce861::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit214e3f80fbe33068885607f3c44ce861::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit214e3f80fbe33068885607f3c44ce861::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit214e3f80fbe33068885607f3c44ce861::$classMap;
 
         }, null, ClassLoader::class);
     }
