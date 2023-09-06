@@ -6008,6 +6008,67 @@ class TransactionUtil extends Util
             $this->activityLog($sell_return, 'edited', $sell_return_before);
         }
 
+        // update on 5/5/23
+
+        if(isset($input['save_and_credit'])):
+
+            $credit_note=TransactionPayment::where('business_id',$business_id)
+                        ->where('transaction_id',$sell_return->id)
+                        ->where('payment_for',$sell_return->contact_id)
+                        ->first();
+    
+    
+              $note['method']='cash';
+    
+              $note['payment_ref_no']=$sell_return->invoice_no;
+    
+              $note['transaction_id']=$sell_return->id;
+    
+              $note['amount']=$invoice_total['final_total'];
+    
+              $note['is_return']=1;
+    
+              $note['business_id']=$business_id;
+    
+              $note['payment_for']=$sell_return->contact_id;
+    
+    
+    
+            if($credit_note):
+    
+              $note['amount']=$credit_note->amount;
+    
+              $this->updateCustomerBalance('subtract',$note);
+    
+              $note['amount']=$invoice_total['final_total'];
+    
+    
+    
+              $credit_note->update($note);
+    
+    
+    
+            else:
+    
+                $credit_note = TransactionPayment::create($note);
+    
+    
+    
+    
+            endif;
+    
+    
+    
+                $this->updateCustomerBalance('add',$note);
+    
+    
+    
+    
+            endif;
+    
+            //end
+
+
         if ($business->enable_rp == 1 && ! empty($sell->rp_earned)) {
             $is_reward_expired = $this->isRewardExpired($sell->transaction_date, $business_id);
             if (! $is_reward_expired) {
@@ -6276,4 +6337,27 @@ class TransactionUtil extends Util
 
         return $mpdf;
     }
+
+    public function updateCustomerBalance($type,$note)
+    {
+
+                    if($note['payment_for'] && $note['amount']):
+
+                        $customer=Contact::find($note['payment_for']);
+
+                        if($type=='add'):
+
+                        $customer->balance=$customer->balance+$note['amount'];
+                    else:
+
+                        $customer->balance=$customer->balance-$note['amount'];
+
+
+                    endif;
+
+                        $customer->save();
+
+                    endif;
+    }
+
 }

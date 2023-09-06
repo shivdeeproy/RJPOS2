@@ -289,22 +289,22 @@ class SellReturnController extends Controller
                 $receipt = $this->receiptContent($business_id, $sell_return->location_id, $sell_return->id);
 
 
-                if(isset($request->save_and_credit)):
+                      // if(isset($request->save_and_credit)):
 
-                    $contact_id=$sell_return->contact_id;
+                //     $contact_id=$sell_return->contact_id;
 
-                    if($contact_id && $sell_return->final_total):
+                //     if($contact_id && $sell_return->final_total):
 
-                        $customer=Contact::find($contact_id);
+                //         $customer=Contact::find($contact_id);
 
-                        $customer->balance=$customer->balance+$sell_return->final_total;
+                //         $customer->balance=$customer->balance+$sell_return->final_total;
 
-                        $customer->save();
+                //         $customer->save();
 
-                    endif;
+                //     endif;
 
 
-                endif;
+                // endif;
                 
 
                 DB::commit();
