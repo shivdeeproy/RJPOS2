@@ -199,7 +199,7 @@ class LabelsController extends Controller
                     $is_last = true;
                 }
 
-                $output = view('labels.partials.preview_2')
+                $output = view('labels.partials.preview_3')
                             ->with(compact('print', 'page_products', 'business_name', 'barcode_details', 'margin_top', 'margin_left', 'paper_width', 'paper_height', 'is_first', 'is_last', 'factor'))->render();
                 print_r($output);
                 //$mpdf->WriteHTML($output);
