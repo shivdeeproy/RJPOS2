@@ -52,16 +52,18 @@ $(document).ready(function() {
         var selling_price_inc_tax=__read_number($('input#single_dsp_inc_tax'));
         selling_price_inc_tax = selling_price_inc_tax == undefined ? 0 : selling_price_inc_tax;
 
-        var discount=discount_amount=0;
+      // var discount=discount_amount=0;
 
-        if(selling_price_inc_tax)
-        {
-            discount_amount=mrp_inc_tax-selling_price_inc_tax;
-            discount=discount_amount/selling_price_inc_tax*100;
-         //   console.log(discount);
-        }
+        // if(selling_price_inc_tax)
+        // {
+        //     discount_amount=mrp_inc_tax-selling_price_inc_tax;
+        //     discount=discount_amount/selling_price_inc_tax*100;
+        //  //   console.log(discount);
+        // }
 
-        __write_number($('input#discount'), discount);
+        // __write_number($('input#discount'), discount);
+
+        setDiscountMargin();
 
 
     });
