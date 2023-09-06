@@ -177,6 +177,27 @@ $(document).ready(function() {
         __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
     });
 
+    $(document).on('change', 'input#discount', function(e) {
+
+        var tax_rate = $('select#tax')
+              .find(':selected')
+              .data('rate');
+          tax_rate = tax_rate == undefined ? 0 : tax_rate;
+  
+          var mrp_exc_tax = __read_number($('input#mrp_exc_tax'));
+          mrp_exc_tax = mrp_exc_tax == undefined ? 0 : mrp_exc_tax;
+  
+          var discount = __read_number($('input#discount'));
+          var selling_price = __substract_percent(mrp_exc_tax, discount);
+          __write_number($('input#single_dsp'), selling_price);
+  
+          var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
+          __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+  
+          setDiscountMargin();
+  
+      });
+      
     $(document).on('change', 'input#single_dsp', function(e) {
         var tax_rate = $('select#tax')
             .find(':selected')
