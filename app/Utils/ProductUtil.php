@@ -36,7 +36,7 @@ class ProductUtil extends Util
      * @param $combo_variations = []
      * @return bool
      */
-    public function createSingleProductVariation($product, $sku, $purchase_price, $dpp_inc_tax, $profit_percent, $selling_price, $selling_price_inc_tax, $combo_variations = [])
+    public function createSingleProductVariation($product, $sku, $purchase_price, $dpp_inc_tax, $profit_percent, $selling_price, $selling_price_inc_tax, $combo_variations = [],$mrp_exc_tax,$mrp_inc_tax,$discount)
     {
         if (! is_object($product)) {
             $product = Product::find($product);
@@ -60,6 +60,9 @@ class ProductUtil extends Util
             'default_sell_price' => $this->num_uf($selling_price),
             'sell_price_inc_tax' => $this->num_uf($selling_price_inc_tax),
             'combo_variations' => $combo_variations,
+            'discount'=>$discount,
+            'mrp_exc_tax'=>$mrp_exc_tax,
+            'mrp_inc_tax'=>$mrp_inc_tax,
         ];
         $variation = $product_variation->variations()->create($variation_data);
 
@@ -1220,6 +1223,9 @@ class ProductUtil extends Util
             $purchase_line->sub_unit_id = ! empty($data['sub_unit_id']) ? $data['sub_unit_id'] : null;
             $purchase_line->purchase_order_line_id = ! empty($data['purchase_order_line_id']) ? $data['purchase_order_line_id'] : null;
             $purchase_line->purchase_requisition_line_id = ! empty($data['purchase_requisition_line_id']) && $transaction->type == 'purchase_order' ? $data['purchase_requisition_line_id'] : null;
+            //
+            $purchase_line->mrp_inc_tax = $data['mrp_inc_tax']?? null;
+            $purchase_line->discount_on_mrp = $data['discount_on_mrp']?? null;
 
             if (! empty($data['secondary_unit_quantity'])) {
                 $purchase_line->secondary_unit_quantity = $this->num_uf($data['secondary_unit_quantity']);

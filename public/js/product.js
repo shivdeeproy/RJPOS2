@@ -33,6 +33,63 @@ $(document).ready(function() {
 
     //Start For product type single
 
+//If mrp price exc tax is changed
+     //If purchase price exc tax is changed
+     $(document).on('change', 'input#mrp_exc_tax', function(e) {
+        var mrp_exc_tax = __read_number($('input#mrp_exc_tax'));
+        mrp_exc_tax = mrp_exc_tax == undefined ? 0 : mrp_exc_tax;
+
+        var tax_rate = $('select#tax')
+            .find(':selected')
+            .data('rate');
+        tax_rate = tax_rate == undefined ? 0 : tax_rate;
+
+        var mrp_inc_tax = __add_percent(mrp_exc_tax, tax_rate);
+        __write_number($('input#mrp_inc_tax'), mrp_inc_tax);
+
+       // var profit_percent = __read_number($('#profit_percent'));
+    //    var selling_price = __add_percent(purchase_exc_tax, profit_percent);
+        var selling_price_inc_tax=__read_number($('input#single_dsp_inc_tax'));
+        selling_price_inc_tax = selling_price_inc_tax == undefined ? 0 : selling_price_inc_tax;
+
+        var discount=discount_amount=0;
+
+        if(selling_price_inc_tax)
+        {
+            discount_amount=mrp_inc_tax-selling_price_inc_tax;
+            discount=discount_amount/selling_price_inc_tax*100;
+         //   console.log(discount);
+        }
+
+        __write_number($('input#discount'), discount);
+
+
+    });
+
+     //If mrp price inc tax is changed
+    $(document).on('change', 'input#mrp_inc_tax', function(e) {
+        var mrp_inc_tax = __read_number($('input#mrp_inc_tax'));
+        mrp_inc_tax = mrp_inc_tax == undefined ? 0 : mrp_inc_tax;
+
+        var tax_rate = $('select#tax')
+            .find(':selected')
+            .data('rate');
+        tax_rate = tax_rate == undefined ? 0 : tax_rate;
+
+        var mrp_exc_tax = __get_principle(mrp_inc_tax, tax_rate);
+        __write_number($('input#mrp_exc_tax'), mrp_exc_tax);
+        $('input#mrp_exc_tax').change();
+
+        // var profit_percent = __read_number($('#profit_percent'));
+        // profit_percent = profit_percent == undefined ? 0 : profit_percent;
+        // var selling_price = __add_percent(purchase_exc_tax, profit_percent);
+        // __write_number($('input#single_dsp'), selling_price);
+
+        // var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
+        // __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+    });
+
+
     //If purchase price exc tax is changed
     $(document).on('change', 'input#single_dpp', function(e) {
         var purchase_exc_tax = __read_number($('input#single_dpp'));
@@ -71,6 +128,7 @@ $(document).ready(function() {
             var selling_price = __read_number($('input#single_dsp'));
             var selling_price_inc_tax = __add_percent(selling_price, tax_rate);
             __write_number($('input#single_dsp_inc_tax'), selling_price_inc_tax);
+            $('#mrp_exc_tax').change();
         }
     });
 

@@ -10,7 +10,9 @@ return [
     | The following language lines are used for Purchase screens
     |
     */
-
+    'purchase_line_taxes'=>'Purchase Line Taxes',
+    'mrp_inc_tax'=>'MRP (Inc. tax)',
+    'discount_on_mrp'=>'Discount % on MRP',
     'supplier' => 'Supplier',
     'ref_no' => 'Reference No',
     'business_location' => 'Business Location',
