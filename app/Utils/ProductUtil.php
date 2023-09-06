@@ -537,6 +537,10 @@ class ProductUtil extends Util
             'brands.name as brand',
             DB::raw('(SELECT purchase_price_inc_tax FROM purchase_lines WHERE 
                         variation_id=variations.id ORDER BY id DESC LIMIT 1) as last_purchased_price')
+            DB::raw('(SELECT purchase_price FROM purchase_lines WHERE 
+                        variation_id=variations.id ORDER BY id DESC LIMIT 1) as last_purchased_price_exc_tax'),
+            DB::raw('(SELECT tax_id FROM purchase_lines WHERE 
+                        variation_id=variations.id ORDER BY id DESC LIMIT 1) as last_purchased_tax_id')
         )
         ->firstOrFail();
 
