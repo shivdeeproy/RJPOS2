@@ -239,27 +239,99 @@ $(document).ready(function() {
         var mrp_inc_tax = __read_number($(this));
         mrp_inc_tax = mrp_inc_tax == undefined ? 0 : mrp_inc_tax;
 
+
+
         var selling_price_inc_tax=__read_number(row.find('.base_unit_selling_price'));
 
          selling_price_inc_tax = selling_price_inc_tax == undefined ? 0 : selling_price_inc_tax;
+
+        // var discount=discount_amount=0;
+
+        // if(selling_price_inc_tax)
+        // {
+        //     discount_amount=mrp_inc_tax-selling_price_inc_tax;
+        //     discount=discount_amount/selling_price_inc_tax*100;
+        //  //   console.log(discount);
+        // }
+
+        // __write_number(row.find('.discount'),discount);
+
+
+        setDiscountMargin(row);
+
+                update_table_total();
+                update_grand_total();
+
+
+
+    })
+
+     function makeSpecialNumber(price,row)
+    {
+        var lastDigit = price % 10;
+       
+        if(lastDigit==9)
+        {
+             __write_number(row.find('.default_sell_price'), price);
+
+             
+             var purchase_inc_tax=__read_number(row.find('input.purchase_unit_cost_after_tax'), true);
+             var mrp_inc_tax=__read_number(row.find('.mrp_inc_tax'));
+
+         mrp_inc_tax = mrp_inc_tax == undefined ? 0 : mrp_inc_tax;
+             var selling_price_inc_tax=__read_number(row.find('.default_sell_price'));
+
+         selling_price_inc_tax = selling_price_inc_tax == undefined ? 0 : selling_price_inc_tax;
+
+             console.log(selling_price_inc_tax,purchase_inc_tax,mrp_inc_tax);
+
+
+
+           var profit_percent = __get_rate(purchase_inc_tax, selling_price_inc_tax);
+
+             __write_number(row.find('.profit_percent'), profit_percent);
+
+             if(mrp_inc_tax){
 
         var discount=discount_amount=0;
 
         if(selling_price_inc_tax)
         {
             discount_amount=mrp_inc_tax-selling_price_inc_tax;
-            discount=discount_amount/selling_price_inc_tax*100;
+            discount=discount_amount/mrp_inc_tax*100;
          //   console.log(discount);
         }
+             
+             __write_number(row.find('.discount'), discount);
 
-        __write_number(row.find('.discount'),discount);
-
-
-                update_table_total();
-                update_grand_total();
+             }
 
 
-    })
+
+        }
+        else if(lastDigit >=5)
+        {
+           price++;
+           makeSpecialNumber(price,row);
+        }
+        else if(lastDigit < 5)
+        {
+            price--;
+            makeSpecialNumber(price,row);
+        }
+    }
+
+    function setDiscountMargin(row)
+    {
+        var selling_price_inc_tax=__read_number(row.find('.default_sell_price'));
+        if(selling_price_inc_tax){
+            selling_price_inc_tax=selling_price_inc_tax.toFixed(0);
+           
+            console.log(selling_price_inc_tax);
+            makeSpecialNumber(selling_price_inc_tax,row);
+
+        }
+    }
 
     //On Change of quantity
     $(document).on('change', '.purchase_quantity', function() {
@@ -289,8 +361,11 @@ $(document).ready(function() {
         );
         __write_number(row.find('input.row_subtotal_after_tax_hidden'), sub_total_after_tax, true);
 
+        setDiscountMargin(row);
+
         update_table_total();
         update_grand_total();
+
     });
 
     $(document).on('change', '.purchase_unit_cost_without_discount', function() {
@@ -341,6 +416,7 @@ $(document).ready(function() {
         );
         __write_number(row.find('input.purchase_product_unit_tax'), tax, true);
 
+        setDiscountMargin(row);
         update_inline_profit_percentage(row);
         update_table_total();
         update_grand_total();
@@ -397,6 +473,8 @@ $(document).ready(function() {
         );
         __write_number(row.find('input.purchase_product_unit_tax'), tax, true);
 
+        setDiscountMargin(row);
+
         update_inline_profit_percentage(row);
         update_table_total();
         update_grand_total();
@@ -451,6 +529,8 @@ $(document).ready(function() {
         );
         __write_number(row.find('input.row_subtotal_after_tax_hidden'), sub_total_after_tax, true);
 
+        setDiscountMargin(row);
+
         update_inline_profit_percentage(row);
         update_table_total();
         update_grand_total();
@@ -484,6 +564,8 @@ $(document).ready(function() {
             __currency_trans_from_en(sub_total_after_tax, false, true)
         );
         __write_number(row.find('input.row_subtotal_after_tax_hidden'), sub_total_after_tax, true);
+
+        setDiscountMargin(row);
 
         update_table_total();
         update_grand_total();
@@ -534,6 +616,8 @@ $(document).ready(function() {
 
         row.find('.purchase_product_unit_tax_text').text(__currency_trans_from_en(tax, true, true));
         __write_number(row.find('input.purchase_product_unit_tax'), tax);
+
+        setDiscountMargin(row);
 
         update_table_total();
         update_grand_total();
@@ -593,8 +677,8 @@ $(document).ready(function() {
             { data: 'name', name: 'contacts.name' },
             { data: 'status', name: 'status' },
             { data: 'payment_status', name: 'payment_status' },
-            { data: 'total_without_gst',name:'total_without_gst'},
-            { data: 'total_gst',name:'total_gst'},
+             {data:'total_without_gst',name:'total_without_gst'},
+            {data:'total_gst',name:'total_gst'},
             { data: 'final_total', name: 'final_total' },
             { data: 'payment_due', name: 'payment_due', orderable: false, searchable: false },
             { data: 'added_by', name: 'u.first_name' },
@@ -606,8 +690,8 @@ $(document).ready(function() {
             var total_purchase = 0;
             var total_due = 0;
             var total_purchase_return_due = 0;
-            var total_before_tax_amount = 0;
-            var total_tax_amount = 0;
+              var total_before_tax_amount=0;
+            var total_tax_amount=0;
             for (var r in data){
                 total_purchase += $(data[r].final_total).data('orig-value') ? 
                 parseFloat($(data[r].final_total).data('orig-value')) : 0;
@@ -617,6 +701,7 @@ $(document).ready(function() {
 
                 total_purchase_return_due += payment_due_obj.find('.purchase_return').data('orig-value') ? 
                 parseFloat(payment_due_obj.find('.purchase_return').data('orig-value')) : 0;
+
                 total_before_tax_amount +=  $(data[r].total_without_gst).data('orig-value') ? 
                 parseFloat($(data[r].total_without_gst).data('orig-value')) : 0;
 
@@ -631,6 +716,7 @@ $(document).ready(function() {
             $('.footer_status_count').html(__count_status(data, 'status'));
             $('.footer_payment_status_count').html(__count_status(data, 'payment_status'));
             $('.footer_total_before_tax_amount').html(__currency_trans_from_en(total_before_tax_amount));
+
             $('.footer_total_tax_amount').html(__currency_trans_from_en(total_tax_amount));
         },
         createdRow: function(row, data, dataIndex) {
@@ -715,7 +801,10 @@ $(document).ready(function() {
 
     $(document).on('change', '.default_sell_price', function() {
         var row = $(this).closest('tr');
+
         update_inline_profit_percentage(row);
+        setDiscountMargin(row);
+
     });
 
     $(document).on('click', 'a.delete-purchase', function(e) {
@@ -1018,7 +1107,11 @@ function update_grand_total() {
     $('#grand_total').text(__currency_trans_from_en(grand_total, true, true));
 
     $('#payment_due').text(__currency_trans_from_en(due, true, true));
+
     updateTotalFooterRow();
+
+
+
     //__currency_convert_recursively($(document));
 }
 $(document).on('change', 'input.payment-amount', function() {
@@ -1406,7 +1499,7 @@ function updateTotalFooterRow()
     $('#purchase_entry_table').find('tbody').find('tr').each(function(index)
     {
         counter++;
-
+        
        if($(this).find('[name="purchases['+index+'][quantity]"]') !=='undefined')
        {
            footerTotalQuantity+=__read_number($(this).find('[name="purchases['+index+'][quantity]"]'));
@@ -1462,7 +1555,7 @@ function updateTotalFooterRow()
        tfoot+='<th></th><th></th>';
 
          tfoot+='<th>'+__get_number((footerTotalDiscountAverage/counter),false)+'</th>';
-
+       
 
        tfoot+='<th></th>';
 
@@ -1472,14 +1565,14 @@ function updateTotalFooterRow()
          tfoot+='<th>'+__get_number(footerSubtotalBeforeTax,false)+'</th>';
        }
 
+  
 
-
-
+    
          tfoot+='<th>'+__get_number(footerProductTax,false)+'</th>';
 
          tfoot+='<th></th>';
 
-
+    
          tfoot+='<th>'+__get_number(footerLineTotal,false)+'</th>';
 
          tfoot+='<th>'+__get_number((footerProfit/counter),false)+'</th>';
@@ -1487,7 +1580,7 @@ function updateTotalFooterRow()
 
          tfoot+='<th></th>';
 
-
+    
          tfoot+='<th>'+__get_number(footerSellingPriceIncTax,false)+'</th>';
 
          tfoot+='<th></th><th></th>';
@@ -1501,7 +1594,7 @@ function updateTotalFooterRow()
        $('#purchase_entry_table').find('tfoot').html(tfoot);
    }
 
-
+   
    __write_number($('[name="total_without_gst"]'),footerSubtotalBeforeTax);
    __write_number($('[name="total_gst"]'),footerProductTax);
 
