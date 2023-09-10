@@ -766,6 +766,8 @@ class SellPosController extends Controller
             $output['html_content'] = view($layout, compact('receipt_details'))->render();
         }
 
+        echo '<pre>';print_r($receipt_details);die;
+
         return $output;
     }
 
