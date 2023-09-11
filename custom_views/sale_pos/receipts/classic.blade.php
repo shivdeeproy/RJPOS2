@@ -1,13 +1,29 @@
 <!-- business information here -->
-<style type="text/css">
-
-	@page {
-    size: 80mm 500mm;
-   
-    margin: 5mm;
-}
+<style type="text/css"0>
 
 	@media print {
+
+		  
+   body{
+    page-break-inside: avoid;
+  /*  page-break-after: avoid;
+    page-break-before: avoid;*/
+    font-size: smaller;
+    font-weight: bold;
+}
+		  table{
+		 
+		  	
+    
+table-layout:fixed;
+
+		  	
+    width: 100%; /* Make the table as wide as the printable area */
+/*    max-width: 10; /* Set the maximum width according to the paper size */*/
+    /* Adjust other styles as needed, e.g., font size, margins, etc. */
+  }
+
+
   
 		body{
     page-break-inside: avoid;
@@ -32,6 +48,8 @@ table.table-slim >thead >tr.border-top
 	border-top: 1px dotted;
 }
 
+
+
 table.table-slim >thead >tr.border-bottom
 {
 	border-bottom: 1px dotted;
@@ -49,6 +67,8 @@ table.table-slim >tbody >tr > td {
 	border:none;
 }
 
+
+
 table.table-slim >tbody >tr.border-top
 {
 	border-top: 1px dotted;
@@ -57,7 +77,7 @@ table.table-slim >tbody >tr.border-top
 table.table-slim >tbody >tr.font-large
 {
 	font-weight: bold;
-	font-size: large;
+	font-size: 10px;
 }
 
 table.table-slim >tbody >tr.border-top-bottom
@@ -73,7 +93,7 @@ table.table-slim >tbody >tr.border-top-bottom
 table.table-slim > tbody > tr.border-top > td > table >tbody >tr
 {
 
-	font-size: large;
+	font-size: normal;
 	
 }
 
@@ -143,7 +163,13 @@ table.table-slim >thead > tr.border-top > th {
 	width:20%;
 }
 
+table.table-slim >thead > tr.border-top > th {
+	width:20%;
 }
+
+}
+
+
 
 
 </style>
@@ -153,12 +179,12 @@ table.table-slim >thead > tr.border-top > th {
 	@if(empty($receipt_details->letter_head))
 		<!-- Logo -->
 		@if(!empty($receipt_details->logo))
-			<img style="max-height: 80px; width: auto;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
+			<img style="max-height: 120px; width: auto;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
 		@endif
 
 		<!-- Header text -->
 		@if(!empty($receipt_details->header_text))
-			<div class="col-xs-12" text-center>
+			<div class="col-xs-12">
 				{!! $receipt_details->header_text !!}
 			</div>
 		@endif
@@ -353,25 +379,25 @@ table.table-slim >thead > tr.border-top > th {
 				$p_width -= 10;
 			@endphp
 		@endif
-		<table class="table-slim">
+		<table class="table table-responsive table-slim ">
 			<thead>
 				<tr class="border-top">
-					<th>Sr. {{$receipt_details->table_product_label}}</th>
+					<th  rowspan="">Sr. {{$receipt_details->table_product_label}}</th>
 					<!-- <th width="{{$p_width}}%"></th> -->
 					<th class="text-right">MRP</th>
 					
 					
-						<th class="text-right">Disc</th>
+						<th class="text-right" width="10%">Disc</th>
 					
 					<th class="text-right">Rate</th>
-					<th class="text-right">{{$receipt_details->table_subtotal_label}}</th>
+					<th class="text-right" width="15%">{{$receipt_details->table_subtotal_label}}</th>
 				</tr>
 				<tr class="border-bottom">
 					<th></th>
-					<th class="text-right">Qty</th>
-					<th class="text-right">{{'HSN'}}</th>
+					<th class="text-right" width="15%">Qty</th>
+					<th class="text-right" width="15%">{{'HSN'}}</th>
 					<th class="text-right">GST</th>
-					<th></th>
+					<th ></th>
 
 					
 				</tr>
@@ -409,9 +435,8 @@ table.table-slim >thead > tr.border-top > th {
 						<td>{{$lindex+1}}</td>
 						
 					
-						<td class="text-right">{{$line['mrp_inc_tax']??' '}}</td>
+						<td class="text-right">{{$line['mrp_inc_tax']}}</td>
 						
-						@if(!empty($receipt_details->item_discount_label))
 							<td class="text-right">
 								{{$line['total_line_discount'] ?? '0.00'}}
 
@@ -419,7 +444,7 @@ table.table-slim >thead > tr.border-top > th {
 								 	({{$line['line_discount_percent']??0}}%)
 								@endif
 							</td>
-						@endif
+						
 
 						<td class="text-right">{{$line['unit_price_before_discount']}}</td>
 
@@ -451,7 +476,6 @@ table.table-slim >thead > tr.border-top > th {
 
 
 							</tr>
-							{{--
 					@if(!empty($line['modifiers']))
 						@foreach($line['modifiers'] as $modifier)
 							<tr>
@@ -473,7 +497,7 @@ table.table-slim >thead > tr.border-top > th {
 
 						
 						@endforeach
-					@endif--}}
+					@endif
 				@empty
 					<tr>
 						<td colspan="4">&nbsp;</td>
@@ -484,7 +508,7 @@ table.table-slim >thead > tr.border-top > th {
     					<td></td>
     					@endif
 					</tr>
-				@endforelse
+				@endforelse 
 
 				<tr class="border-top">
 					<td colspan="2"><table class="">
@@ -630,12 +654,6 @@ F</td></tr>
 				<img class="center-block" src="data:image/png;base64,{{DNS1D::getBarcodePNG($receipt_details->invoice_no, 'C128', 2,30,array(39, 48, 54), true)}}">
 			@endif
 
-			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
-				<img class="center-block mt-5" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
-			@endif
-		</div>
-	@endif
-</div>
 
 
 
