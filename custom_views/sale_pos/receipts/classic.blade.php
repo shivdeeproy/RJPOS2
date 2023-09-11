@@ -1,8 +1,32 @@
 <!-- business information here -->
-<style type="text/css"0>
+<style type="text/css">
+
+	@page {
+    size: 80mm 500mm;
+   
+    margin: 5mm;
+}
 
 	@media print {
   
+		body{
+    page-break-inside: avoid;
+  /*  page-break-after: avoid;
+    page-break-before: avoid;*/
+    font-size: smaller;
+    font-weight: bold;
+}
+		  table{
+		 
+		  	
+    
+table-layout:fixed;
+		  	
+    width: 100%; /* Make the table as wide as the printable area */
+/*    max-width: 10; /* Set the maximum width according to the paper size */*/
+    /* Adjust other styles as needed, e.g., font size, margins, etc. */
+  }
+
 table.table-slim >thead >tr.border-top
 {
 	border-top: 1px dotted;
@@ -42,7 +66,7 @@ table.table-slim >tbody >tr.border-top-bottom
 	border-bottom: 1px dotted;
 	margin-bottom:10px;
 	font-weight: bold;
-	font-size: large;
+	font-size: 10px;
 
 }
 
@@ -63,7 +87,7 @@ table.table-slim > tbody > tr > td > table >tbody >tr >td.text-center-top
 {
 	
 	text-align: center;
-	padding: 15px;
+	padding-top: 15px;
 }
 
 table.tax-table
@@ -105,7 +129,7 @@ table.table-table-border
 
 table > tbody >tr.font-large
 {
-	font-size: large;
+	font-size: 10px;
 	font-weight: bold;
 
 }
@@ -115,6 +139,9 @@ table > tbody >tr.font-large
 	width: 100%;
 }
 
+table.table-slim >thead > tr.border-top > th {
+	width:20%;
+}
 
 }
 
@@ -126,12 +153,12 @@ table > tbody >tr.font-large
 	@if(empty($receipt_details->letter_head))
 		<!-- Logo -->
 		@if(!empty($receipt_details->logo))
-			<img style="max-height: 120px; width: auto;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
+			<img style="max-height: 80px; width: auto;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
 		@endif
 
 		<!-- Header text -->
 		@if(!empty($receipt_details->header_text))
-			<div class="col-xs-12">
+			<div class="col-xs-12" text-center>
 				{!! $receipt_details->header_text !!}
 			</div>
 		@endif
@@ -144,7 +171,7 @@ table > tbody >tr.font-large
 		</div>
 	@endif
 	<div class="col-xs-12 text-center">
-		<h3 style="text-decoration:underline;display:inline-block;text-align: center;">Tax Invoice</h3>
+		<h3 style="text-decoration:underline;display:inline-block;text-align: center;">TAX INVOICE</h3>
 		<!-- Invoice  number, Date  -->
 		<p style="width: 100% !important" class="word-wrap">
 			<span class="pull-left text-left word-wrap">
@@ -326,23 +353,23 @@ table > tbody >tr.font-large
 				$p_width -= 10;
 			@endphp
 		@endif
-		<table class="table table-responsive table-slim ">
+		<table class="table-slim">
 			<thead>
 				<tr class="border-top">
-					<th  rowspan="">Sr. {{$receipt_details->table_product_label}}</th>
+					<th>Sr. {{$receipt_details->table_product_label}}</th>
 					<!-- <th width="{{$p_width}}%"></th> -->
-					<th class="text-right" width="15%">MRP</th>
+					<th class="text-right">MRP</th>
 					
 					
-						<th class="text-right" width="10%">Disc</th>
+						<th class="text-right">Disc</th>
 					
 					<th class="text-right">Rate</th>
-					<th class="text-right" width="15%">{{$receipt_details->table_subtotal_label}}</th>
+					<th class="text-right">{{$receipt_details->table_subtotal_label}}</th>
 				</tr>
 				<tr class="border-bottom">
 					<th></th>
-					<th class="text-right" width="15%">Qty</th>
-					<th class="text-right" width="15%">{{'HSN'}}</th>
+					<th class="text-right">Qty</th>
+					<th class="text-right">{{'HSN'}}</th>
 					<th class="text-right">GST</th>
 					<th></th>
 
@@ -382,14 +409,14 @@ table > tbody >tr.font-large
 						<td>{{$lindex+1}}</td>
 						
 					
-						<td class="text-right">{{$line['mrp_inc_tax']}}</td>
+						<td class="text-right">{{$line['mrp_inc_tax']??' '}}</td>
 						
 						@if(!empty($receipt_details->item_discount_label))
 							<td class="text-right">
 								{{$line['total_line_discount'] ?? '0.00'}}
 
 								@if(!empty($line['line_discount_percent']))
-								 	({{$line['line_discount_percent']}}%)
+								 	({{$line['line_discount_percent']??0}}%)
 								@endif
 							</td>
 						@endif
@@ -424,6 +451,7 @@ table > tbody >tr.font-large
 
 
 							</tr>
+							{{--
 					@if(!empty($line['modifiers']))
 						@foreach($line['modifiers'] as $modifier)
 							<tr>
@@ -445,7 +473,7 @@ table > tbody >tr.font-large
 
 						
 						@endforeach
-					@endif
+					@endif--}}
 				@empty
 					<tr>
 						<td colspan="4">&nbsp;</td>
@@ -570,7 +598,7 @@ table > tbody >tr.font-large
 
 				<tr class="border-top-bottom font-large">
 
-					<td><table><tr><td>Rec Amount:</td><td>{{$receipt_details->total_paid}}</td></tr></table></td>
+					<td style="width:60%"><table><tr><td>Rec Amount:</td><td>{{$receipt_details->total_paid}}</td></tr></table></td>
 					
 					<td><table><tr><td>Pay Back:</td><td>0</td></tr></table></td>
 				</tr>
@@ -584,16 +612,30 @@ table > tbody >tr.font-large
 				<tr>
 					<td>Subject to Mumbai Jurisdiction</td><td class="text-right">E.& O.E.</td>
 				</tr>
-				<tr><td>GSTIN NO:</td> <td> 27AACFJ5990Q1ZJ</td></tr>
+				<tr><td>GSTIN NO:</td> <td> {{$receipt_details->tax_info1}}</td></tr>
 				<tr><td>STATE:</td> <td> MAHARASHTRA(27)
 F</td></tr>
-<tr><td>Inclusive In GST</td><td class="text-right">For ROYAL JYOTI</td></tr>
+<tr><td>Inclusive In GST</td><td class="text-right">For {{strtoupper($receipt_details->business_name??'ROYAL JYOTI')}}</td></tr>
 
 			</tbody>
 		</table>
 	</div>
 </div>
+<div class="row" style="color: #000000 !important;">
 
+	@if($receipt_details->show_barcode || $receipt_details->show_qr_code)
+		<div class=" col-xs-12 text-center">
+			@if($receipt_details->show_barcode)
+				{{-- Barcode --}}
+				<img class="center-block" src="data:image/png;base64,{{DNS1D::getBarcodePNG($receipt_details->invoice_no, 'C128', 2,30,array(39, 48, 54), true)}}">
+			@endif
+
+			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
+				<img class="center-block mt-5" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
+			@endif
+		</div>
+	@endif
+</div>
 
 
 
