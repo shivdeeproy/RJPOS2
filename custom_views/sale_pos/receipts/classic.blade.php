@@ -3,6 +3,14 @@
 
 	@media print {
 
+		.mt-10
+		{
+			margin-top:15px;
+			width:150px;
+			height: 65px;
+			font-weight:bold;
+		}
+
 		  
    body{
     page-break-inside: avoid;
@@ -21,6 +29,13 @@ table-layout:fixed;
     width: 100%; /* Make the table as wide as the printable area */
 /*    max-width: 10; /* Set the maximum width according to the paper size */*/
     /* Adjust other styles as needed, e.g., font size, margins, etc. */
+  }
+
+  table.thankyou >tbody > tr > td{
+
+ border-top: 1px dotted;
+	border-bottom: 1px dotted;
+	font-size: smaller;
   }
 
 
@@ -438,10 +453,10 @@ table.table-slim >thead > tr.border-top > th {
 						<td class="text-right">{{$line['mrp_inc_tax']}}</td>
 						
 							<td class="text-right">
-								{{$line['total_line_discount'] ?? '0.00'}}
+							
 
-								@if(!empty($line['line_discount_percent']))
-								 	({{$line['line_discount_percent']??0}}%)
+								@if(!empty($line['discount']))
+								 	({{round($line['discount']??0,2)}}%)
 								@endif
 							</td>
 						
@@ -643,16 +658,46 @@ F</td></tr>
 
 			</tbody>
 		</table>
+
+		<table width="100%" class="thankyou">
+			<tbody>
+				<tr>
+					<td>THANK YOU!<br>
+						NO REFUNDS. EXCHANGE WITHIN 20 DAYS IN SALABLE CONDITION
+</td>
+				</tr>
+
+
+			</tbody>
+		</table>
 	</div>
 </div>
 <div class="row" style="color: #000000 !important;">
 
 	@if($receipt_details->show_barcode || $receipt_details->show_qr_code)
-		<div class=" col-xs-12 text-center">
+		<div class=" col-xs-4 text-center">
 			@if($receipt_details->show_barcode)
 				{{-- Barcode --}}
 				<img class="center-block" src="data:image/png;base64,{{DNS1D::getBarcodePNG($receipt_details->invoice_no, 'C128', 2,30,array(39, 48, 54), true)}}">
 			@endif
+
+			
+			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
+				<img class="center-block mt-10" style="height:50px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
+			@endif
+		</div>
+		<div class=" col-xs-8 text-center" >
+		
+				<img class="center-block mt-5" style="height:80px;width:300px;" src="{{asset('img/social_qrcode.jpeg')}}">
+			
+		</div>
+	@endif
+
+
+
+	
+</div>
+
 
 
 
