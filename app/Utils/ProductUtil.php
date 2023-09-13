@@ -471,6 +471,8 @@ class ProductUtil extends Util
     {
         $query = Variation::join('products AS p', 'variations.product_id', '=', 'p.id')
                 ->join('product_variations AS pv', 'variations.product_variation_id', '=', 'pv.id')
+                ->join('categories as c','p.category_id','=','c.id')
+                ->leftjoin('categories as sub_c','p.sub_category_id','=','sub_c.id')
                 ->leftjoin('variation_location_details AS vld', 'variations.id', '=', 'vld.variation_id')
                 ->leftjoin('units', 'p.unit_id', '=', 'units.id')
                 ->leftjoin('units as u', 'p.secondary_unit_id', '=', 'u.id')
@@ -502,6 +504,8 @@ class ProductUtil extends Util
                     ' (', pv.name, ':',variations.name, ')'), p.name) AS product_name"),
             'p.id as product_id',
             'p.brand_id',
+            'c.name as category_name',
+            'sub_c.name as sub_category_name',
             'p.category_id',
             'p.tax as tax_id',
             'p.enable_stock',
