@@ -101,7 +101,7 @@
 				<div style="display:flex; width: 100%;justify-content: space-between;">
 
 					<div style="width:35%;display: flex;word-break:break-word;font-size: 5px;padding:2px;align-items: center;">
-						<span>dfdfdfjfdjklkjlsdklj{{$page_product->product_custom_field1??''}}</span></div>
+						<span>{{$page_product->product_custom_field1??''}}&nbsp;</span></div>
 
 					<div style="width:65%;font-weight: bold;display: flex;justify-content: space-between;align-items: center;"><span style="font-size:10px">MRP.</span> 
 					<div style="font-size:13px;width:70%;">₹ <span style="text-decoration:line-through;font-size:16px;">{{round($page_product->mrp_inc_tax)}}</span></div></div>
