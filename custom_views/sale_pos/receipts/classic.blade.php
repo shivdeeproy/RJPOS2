@@ -182,7 +182,7 @@ table.table-slim >thead > tr.border-top > th {
 	@if(empty($receipt_details->letter_head))
 		<!-- Logo -->
 		@if(!empty($receipt_details->logo))
-			<img style="max-height: 60px; width: 28%;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
+			<img style="max-height: 85px; width: 55%;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
 		@endif
 
 		<!-- Header text -->
@@ -447,11 +447,11 @@ table.table-slim >thead > tr.border-top > th {
 
 								@php
 
-								$discount=$line['mrp_inc_tax']-$line['unit_price_before_discount_uf'];
+								$discount=($line['mrp_inc_tax']-$line['unit_price_before_discount_uf']);
 
-								$totalDiscount=$totalDiscount+($discount?$discount:0);
+								$totalDiscount=$totalDiscount+(($discount?$discount:0)*$line['quantity']);
 
-								$totalAmount=$totalAmount+($line['mrp_inc_tax']??0);
+								$totalAmount=$totalAmount+($line['mrp_inc_tax']*$line['quantity']);
 
 
 								 @endphp
@@ -564,7 +564,7 @@ table.table-slim >thead > tr.border-top > th {
 
 				<tr class="border-top-bottom">
 
-					<td>{{$receipt_details->commission_agent??''}}</td>
+					<td style="font-size:smaller;font-weight: bold;">{{$receipt_details->commission_agent??''}}</td>
 					<td>{{$totalQuantity}}</td>
 					<td colspan="">Total:</td>
 					<td colspan="2" class="text-right">{{$receipt_details->total_paid}}</td>
@@ -639,9 +639,9 @@ table.table-slim >thead > tr.border-top > th {
 
 				<tr class="border-top-bottom font-large">
 
-					<td style="width:60%"><table><tr><td>Rec Amount:</td><td>{{$receipt_details->total_paid}}</td></tr></table></td>
+					<td style="width:90%"><table><tr><td>Rec Amount:</td><td>{{$receipt_details->total_paid}}</td></tr></table></td>
 					
-					<td><table><tr><td>Pay Back:</td><td>0</td></tr></table></td>
+					<td></td>
 				</tr>
 
 			</tbody>
