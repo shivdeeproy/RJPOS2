@@ -1,13 +1,10 @@
 <!-- business information here -->
 <style type="text/css">
 
-	@page {
-
+		@page {
     size: 80mm 500mm;
    
-
     margin: 5mm;
-
 }
 
 	@media print {
@@ -49,6 +46,24 @@ table-layout:fixed;
 
 
   
+		body{
+    page-break-inside: avoid;
+  /*  page-break-after: avoid;
+    page-break-before: avoid;*/
+    font-size: smaller;
+    font-weight: bold;
+}
+		  table{
+		 
+		  	
+    
+table-layout:fixed;
+		  	
+    width: 100%; /* Make the table as wide as the printable area */
+/*    max-width: 10; /* Set the maximum width according to the paper size */*/
+    /* Adjust other styles as needed, e.g., font size, margins, etc. */
+  }
+
 table.table-slim >thead >tr.border-top
 {
 	border-top: 1px dotted;
@@ -169,6 +184,9 @@ table.table-slim >thead > tr.border-top > th {
 	width:20%;
 }
 
+table.table-slim >thead > tr.border-top > th {
+	width:20%;
+}
 
 }
 
@@ -182,12 +200,12 @@ table.table-slim >thead > tr.border-top > th {
 	@if(empty($receipt_details->letter_head))
 		<!-- Logo -->
 		@if(!empty($receipt_details->logo))
-			<img style="max-height: 85px; width: 55%;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
+			<img style="max-height: 120px; width: auto;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
 		@endif
 
 		<!-- Header text -->
 		@if(!empty($receipt_details->header_text))
-			<div class="col-xs-12 text-center">
+			<div class="col-xs-12">
 				{!! $receipt_details->header_text !!}
 			</div>
 		@endif
@@ -382,23 +400,23 @@ table.table-slim >thead > tr.border-top > th {
 				$p_width -= 10;
 			@endphp
 		@endif
-		<table class="table-slim ">
+		<table class="table table-responsive table-slim ">
 			<thead>
 				<tr class="border-top">
-					<th  >Sr. {{$receipt_details->table_product_label}}</th>
+					<th  rowspan="">Sr. {{$receipt_details->table_product_label}}</th>
 					<!-- <th width="{{$p_width}}%"></th> -->
 					<th class="text-right">MRP</th>
 					
 					
-						<th class="text-right" >Disc</th>
+						<th class="text-right" width="10%">Disc</th>
 					
 					<th class="text-right">Rate</th>
-					<th class="text-right" >{{$receipt_details->table_subtotal_label}}</th>
+					<th class="text-right" width="15%">{{$receipt_details->table_subtotal_label}}</th>
 				</tr>
 				<tr class="border-bottom">
 					<th></th>
-					<th class="text-right" >Qty</th>
-					<th class="text-right" >{{'HSN'}}</th>
+					<th class="text-right" width="15%">Qty</th>
+					<th class="text-right" width="15%">{{'HSN'}}</th>
 					<th class="text-right">GST</th>
 					<th ></th>
 
@@ -410,8 +428,6 @@ table.table-slim >thead > tr.border-top > th {
 
 				 $totalTaxesGroup=[];
 				     $totalQuantity=0;
-				     $totalDiscount=0;
-				     $totalAmount=0;
 
 
 				@endphp
@@ -440,26 +456,14 @@ table.table-slim >thead > tr.border-top > th {
 						<td>{{$lindex+1}}</td>
 						
 					
-						<td class="text-right">{{$line['mrp_inc_tax']??' '}}</td>
-						
+						<td class="text-right">{{$line['mrp_inc_tax']}}</td>
 						
 							<td class="text-right">
-
-								@php
-
-								$discount=($line['mrp_inc_tax']-$line['unit_price_before_discount_uf']);
-
-								$totalDiscount=$totalDiscount+(($discount?$discount:0)*$line['quantity']);
-
-								$totalAmount=$totalAmount+($line['mrp_inc_tax']*$line['quantity']);
-
-
-								 @endphp
 							
 
-								
-								 	{{$discount}}
-						
+								@if(!empty($line['discount']))
+								 	({{round($line['discount']??0,2)}}%)
+								@endif
 							</td>
 						
 
@@ -487,13 +491,13 @@ table.table-slim >thead > tr.border-top > th {
                             @endif
 						</td>
 
-						<td class="text-right">{{$line['hsn']?$line['hsn']:'NA'}}</td>
+						<td class="text-right">{{$line['hsn']}}</td>
 						<td class="text-right">{{$line['tax_percent']?$line['tax_percent'].'%':''}}</td>
 						<td class="text-right"></td>
 
 
 							</tr>
-				{{--	@if(!empty($line['modifiers']))
+					@if(!empty($line['modifiers']))
 						@foreach($line['modifiers'] as $modifier)
 							<tr>
 								<td>
@@ -514,7 +518,7 @@ table.table-slim >thead > tr.border-top > th {
 
 						
 						@endforeach
-					@endif  --}}
+					@endif
 				@empty
 					<tr>
 						<td colspan="4">&nbsp;</td>
@@ -541,7 +545,7 @@ table.table-slim >thead > tr.border-top > th {
 
 				
 				
-				<td width="80%" class="text-right">{{$totalAmount}}</td>
+				<td width="80%" class="text-right">{{$receipt_details->subtotal}}</td>
 
 			</tr>
 
@@ -550,7 +554,7 @@ table.table-slim >thead > tr.border-top > th {
 
 				
 			
-				<td class="text-right">{{$totalDiscount}}</td>
+				<td class="text-right">{{$receipt_details->total_line_discount}}</td>
 
 			</tr>
 
@@ -564,7 +568,7 @@ table.table-slim >thead > tr.border-top > th {
 
 				<tr class="border-top-bottom">
 
-					<td style="font-size:smaller;font-weight: bold;">{{$receipt_details->commission_agent??''}}</td>
+					<td>1</td>
 					<td>{{$totalQuantity}}</td>
 					<td colspan="">Total:</td>
 					<td colspan="2" class="text-right">{{$receipt_details->total_paid}}</td>
@@ -639,9 +643,9 @@ table.table-slim >thead > tr.border-top > th {
 
 				<tr class="border-top-bottom font-large">
 
-					<td style="width:90%"><table><tr><td>Rec Amount:</td><td>{{$receipt_details->total_paid}}</td></tr></table></td>
+					<td style="width:60%"><table><tr><td>Rec Amount:</td><td>{{$receipt_details->total_paid}}</td></tr></table></td>
 					
-					<td></td>
+					<td><table><tr><td>Pay Back:</td><td>0</td></tr></table></td>
 				</tr>
 
 			</tbody>
@@ -674,15 +678,15 @@ F</td></tr>
 		</table>
 	</div>
 </div>
-
 <div class="row" style="color: #000000 !important;">
-	
+
 	@if($receipt_details->show_barcode || $receipt_details->show_qr_code)
 		<div class=" col-xs-4 text-center">
 			@if($receipt_details->show_barcode)
 				{{-- Barcode --}}
 				<img class="center-block" src="data:image/png;base64,{{DNS1D::getBarcodePNG($receipt_details->invoice_no, 'C128', 2,30,array(39, 48, 54), true)}}">
 			@endif
+
 			
 			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
 				<img class="center-block mt-10" style="height:50px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
@@ -699,6 +703,3 @@ F</td></tr>
 
 	
 </div>
-
-
-
