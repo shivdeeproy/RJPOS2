@@ -5,6 +5,17 @@
  {
  	width: 100%;
 		
+
+}
+
+table.tax-table
+{
+	border-collapse: collapse;
+}
+
+table.tax-table td
+{
+	border:1px solid;
 }
 
    .table-invoice-detail > tbody > tr > td 
@@ -137,9 +148,22 @@
 
 				$totalAmountMRP=0;
 
+				 $totalTaxesGroup=[];
+
 				@endphp
 				@foreach($receipt_details->lines as $lindex => $line)
 				@php 
+
+				 if(isset($totalTaxesGroup[$line['tax_percent']])):
+
+                     $totalTaxesGroup[$line['tax_percent']]+=$line['tax']??0;
+
+                     else:
+
+                     $totalTaxesGroup[$line['tax_percent']]=$line['tax']??0;
+
+
+                     endif;
 
 				$totalAmount=$totalAmount+($line['unit_price_inc_tax_uf']*$line['quantity']);
 
@@ -161,10 +185,89 @@
 				</tr>
 				@endforeach
 
+					@php
+					$lines = count($receipt_details->lines);
+				@endphp
+
+				@for ($i = $lines; $i < 15; $i++)
+    				<tr>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    					<td>&nbsp;</td>
+    				
+    						<td>&nbsp;</td>
+    					
+    				</tr>
+				@endfor
+
 				<tr>
-					<td colspan="7" style="text-align:right;">Discount %: <span>{{round(($totalAmountMRP-$totalAmount)/$totalAmountMRP*100,2)}}</span></td>
-					<td colspan="2">Amount</td>
-					<td>₹{{$totalAmount}}</td>
+					<td colspan="7" style="text-align:right;">Discount %: <span>{{round(($totalAmountMRP-$totalAmount)/$totalAmountMRP*100,2)}}&nbsp;&nbsp;</span></td>
+					<td colspan="2" style="text-align:left"><b>&nbsp;&nbsp;Amount:</b></td>
+					<td>₹{{$totalAmountMRP}}</td>
+
+				</tr>
+
+
+
+				<tr>
+
+					@php
+
+					$paymentMethods=['Cash','Card','Wallet'];
+
+					
+
+					 foreach($receipt_details->payments as $payment):
+
+					 if(isset($payment['method'])=='Cash'):
+
+					 $cashAmount=$payment['amount'];
+
+					 elseif(isset($payment['method'])=='Wallet'):
+
+					 $walletAmount=$payment['amount'];
+
+					 elseif(isset($payment['method'])=='Card'):
+					 
+					 $cardAmount=$payment['amount'];
+
+					 endif;
+
+
+					 endforeach;
+
+
+
+					  @endphp
+
+					<td colspan="2">Cash = {{$cashAmount??''}}</td>
+
+					<td>Card = {{$cardAmount??''}}</td>
+
+
+					<td colspan="2">Wallet = {{$walletAmount??''}}</td>
+
+					<td colspan="2">Balance = {{$receipt_details->total_due??''}}</td>
+
+					<td colspan="2">Discount:	</td>
+					<td>₹{{round($totalAmountMRP-$totalAmount,2)}}</td>		
+
+
+
+				</tr>
+
+				<tr>
+
+					<td colspan="7" style="text-align:left">&nbsp;<b>{{$receipt_details->currency_symbol}}{{$receipt_details->total_in_words??''}}</b></td>
+
+					<td colspan="2"><b>Net Amount:</b></td>
+					<td><b>{{$receipt_details->currency_symbol}}{{$totalAmount}}</b></td>
 
 				</tr>
 			</tbody>
@@ -185,3 +288,39 @@
 	</tbody>
 
 </table>
+
+<table class="tax-table" width="100%">
+			<tbody>
+				@if(count($totalTaxesGroup))
+
+				<tr>
+					@php $cgst=$taxable='';@endphp
+					<td><b>GST Rate</b></td>
+
+					@foreach($totalTaxesGroup as $tax_perc => $tax_val)
+
+					<td colspan="2">{{$tax_perc.'%'}}</td>
+
+					@php 
+
+					$taxable.='<td colspan="2">'.$tax_val.'</td>';
+
+					$cgst.='<td>'.($tax_perc/2).'%</td>';
+					$cgst.='<td>'.($tax_val/100*($tax_perc/2)).'</td>';
+
+
+					@endphp
+
+					@endforeach
+
+				</tr><td><b>Taxable</b></td>{!!$taxable!!}
+				<tr>
+					<td><b>CGST</b></td>{!!$cgst!!}
+				</tr>
+				<tr>
+					<td><b>UGST</b></td>{!!$cgst!!}
+				</tr>
+				@endif
+			</tbody>
+			
+		</table>
