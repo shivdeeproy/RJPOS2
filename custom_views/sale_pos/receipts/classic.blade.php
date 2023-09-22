@@ -447,7 +447,7 @@ table.table-slim >thead > tr.border-top > th {
 
 								@php
 
-								$discount=($line['mrp_inc_tax']-$line['unit_price_before_discount']);
+								$discount=($line['mrp_inc_tax']-$line['unit_price_before_discount_uf']);
 
 								$totalDiscount=$totalDiscount+(($discount?$discount:0)*$line['quantity']);
 
