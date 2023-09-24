@@ -18,6 +18,12 @@ table.tax-table td
 	border:1px solid;
 }
 
+table.tax-table > tbody >tr>td:first-child
+{
+	border-left: none;
+	padding-left:5px;
+}
+
    .table-invoice-detail > tbody > tr > td 
    {
    	padding:10px;
@@ -58,7 +64,7 @@ table.tax-table td
  }
 </style>
 
-<table style="width:100%">
+<table style="width:100%;">
 
 	<thead>
 		<tr><td>
@@ -66,7 +72,7 @@ table.tax-table td
 		@if(empty($receipt_details->letter_head))
 		<!-- Logo -->
 		@if(!empty($receipt_details->logo))
-			<img style="width: 100%;height: 180px" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
+			<img style="width: 100%;height: 180px;min-width:350px;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
 		@endif
 
 		@else
@@ -75,7 +81,7 @@ table.tax-table td
 		</div>
 	@endif
 
-	</td><td><img class="center-block mt-5" style="height:180px;width:100%;" src="{{asset('img/social_qrcode.jpeg')}}"></td>
+	</td><td><img class="center-block mt-5" style="height:180px;width:100%;min-width: 280px;" src="{{asset('img/social_qrcode.jpeg')}}"></td>
 
 </tr>
 
@@ -270,26 +276,10 @@ table.tax-table td
 					<td><b>{{$receipt_details->currency_symbol}}{{$totalAmount}}</b></td>
 
 				</tr>
-			</tbody>
 
-		</table>
-	</td>
-	</tr>
-
-		<!-- business information here -->
-		
-	
-		
-	</thead>
-
-	<tbody>
-		
-
-	</tbody>
-
-</table>
-
-<table class="tax-table" width="100%">
+					<tr >
+		<td colspan="10"  rowspan="" style="width:100%;vertical-align: top;border-bottom: none;">
+		<table class="tax-table" width="100%" style="border-bottom: none;">
 			<tbody>
 				@if(count($totalTaxesGroup))
 
@@ -312,15 +302,92 @@ table.tax-table td
 					@endphp
 
 					@endforeach
+							<td colspan="2" style="width:20%; padding: 10px;border: none;" rowspan="5">
+			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
+				<img class="center-block mt-10" style="height:100px;width:100%;" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
+			@endif
+		</td>		
 
-				</tr><td><b>Taxable</b></td>{!!$taxable!!}
-				<tr>
+				</tr>
+				<tr><td><b>Taxable</b></td>{!!$taxable!!}</tr>
+				<tr>	
+				
 					<td><b>CGST</b></td>{!!$cgst!!}
 				</tr>
 				<tr>
 					<td><b>UGST</b></td>{!!$cgst!!}
 				</tr>
 				@endif
+
+					<tr style="">
+						<td style="border:none;">&nbsp;</td>
+
+				</tr>
+
 			</tbody>
 			
 		</table>
+
+				</td>
+
+					
+
+</tr>
+
+
+<tr>
+	<td colspan="10" style="border-top:none;"><table width="100%">
+			<tbody>
+					<tr style="">
+					<td style="border-bottom:none;border-right:none;padding-top:5px;padding-left:5px;text-align: left;width: 40%;"> Subject to Mumbai Jurisdiction</td>
+					<td style="">&nbsp;</td>
+					<td style="border-left:none;border-right:none;border-bottom:none;text-align: left;width: 30%;" >E.& O.E.</td>
+					<td>&nbsp;</td>
+				</tr>
+			<tr><td style=";border-top: none;text-align: left;padding-left: 5px;width: 40%;"><b>GSTIN NO:</b>&nbsp;&nbsp; {{$receipt_details->tax_info1}}</td>
+			 <td  style="border-top: none;text-align;"> &nbsp;&nbsp; </td>
+				<td style="text-align:left;width:30%"><b>Inclusive of GST</b></td>
+				<td>&nbsp;</td>
+				<td><b>scan to check invoice</b></td>
+
+			</tr>
+			<tr><td style="border-top: none;text-align: left;padding-left: 5px;width: 40%;"><b>State:</b>&nbsp;&nbsp; MAHARASHTRA</td> <td  style="border-top:none;text-align: left;">&nbsp;&nbsp;  </td>
+				<td style="text-align:left;width:30%"><b>State Code:</b>&nbsp;&nbsp; 27</td>
+				<td style="text-align:left;"></td>
+				<td><b>For {{strtoupper(($receipt_details->business_name)?$receipt_details->business_name:'ROYAL JYOTI')}}</b></td>
+
+			</tr>
+		</tbody>
+
+		</table>
+	</td>
+
+
+	</tr>
+
+	<tr>
+		<td colspan="10" style="text-align:left;">THANK YOU!<br>
+NO REFUNDS. EXCHANGE WITHIN 20 DAYS IN SALABLE CONDITION</td>
+	</tr>
+
+
+			</tbody>
+
+		</table>
+	</td>
+	</tr>
+
+
+		<!-- business information here -->
+		
+	
+		
+	</thead>
+
+	<tbody>
+		
+
+	</tbody>
+
+</table>
+
