@@ -75,7 +75,7 @@ table.tax-table td
 		</div>
 	@endif
 
-	</td><td><img class="center-block mt-5" style="height:180px;width:100%;" src="{{asset('img/social_qrcode.jpeg')}}"></td>
+	</td><td><img class="center-block mt-5" style="height:180px;width:100%;" src="{{asset('img/social_qrcode.png')}}"></td>
 
 </tr>
 
