@@ -9,10 +9,10 @@
 		<td align="center" valign="center">
 			<div style="overflow: hidden !important;display: flex; flex-wrap: wrap;width: {{$barcode_details->width * 1}}in; height: {{$barcode_details->height * 1}}in; justify-content: center;">
 
-				<div style="width:100%; padding:2px;">
+				<div style="width:100%; padding:2px;text-align: center;">
 				
 
-				<img style="width:100%;max-width:98% !important;height: {{$barcode_details->height*0.24}}in !important; display: block;" src="data:image/png;base64,{{DNS1D::getBarcodePNG($page_product->sub_sku, $page_product->barcode_type, 1,30, array(0, 0, 0), false)}}">
+				<img style="width:100%;max-width:166px; !important;height: {{$barcode_details->height*0.24}}in !important; display: block;" src="data:image/png;base64,{{DNS1D::getBarcodePNG($page_product->sub_sku, $page_product->barcode_type, 1,30, array(0, 0, 0), false)}}">
 					
 					<span style="font-size: 10px !important">
 
