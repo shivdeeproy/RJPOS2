@@ -689,7 +689,7 @@ F</td></tr>
 
 			
 			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
-				<img class="center-block mt-10" style="height:50px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
+				<img class="center-block mt-10" style="height:50px;width: 50px;" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
 			@endif
 		</div>
 		<div class=" col-xs-8 text-center" >
