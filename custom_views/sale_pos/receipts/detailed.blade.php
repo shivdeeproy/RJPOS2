@@ -252,12 +252,12 @@ table.tax-table > tbody >tr>td:first-child
 
 					  @endphp
 
-					<td colspan="2">Cash = {{$cashAmount??''}}</td>
+					<td colspan="2">@if(isset($cashAmount))Cash = {{$cashAmount??''}} @endif</td>
 
-					<td>Card = {{$cardAmount??''}}</td>
+					<td>@if(isset($cardAmount)) Card = {{$cardAmount??''}} @endif</td>
 
 
-					<td colspan="2">Wallet = {{$walletAmount??''}}</td>
+					<td colspan="2">@if(isset($walletAmount)) Wallet = {{$walletAmount??''}} @endif</td>
 
 					<td colspan="2">Balance = {{$receipt_details->total_due??''}}</td>
 
