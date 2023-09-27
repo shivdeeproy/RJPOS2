@@ -9,10 +9,10 @@
 		<td align="center" valign="center">
 			<div style="overflow: hidden !important;display: flex; flex-wrap: wrap;width: {{$barcode_details->width * 1}}in; height: {{$barcode_details->height * 1}}in; justify-content: center;">
 
-				<div style="width:100%; padding:2px;">
+				<div style="width:100%; padding:2px;text-align: center;">
 				
 
-				<img style="width:100%;max-width:98% !important;height: {{$barcode_details->height*0.24}}in !important; display: block;" src="data:image/png;base64,{{DNS1D::getBarcodePNG($page_product->sub_sku, $page_product->barcode_type, 1,30, array(0, 0, 0), false)}}">
+				<img style="width:100%;max-width:166px; !important;height: {{$barcode_details->height*0.24}}in !important; display: block;" src="data:image/png;base64,{{DNS1D::getBarcodePNG($page_product->sub_sku, $page_product->barcode_type, 1,30, array(0, 0, 0), false)}}">
 					
 					<span style="font-size: 10px !important">
 
@@ -104,7 +104,7 @@
 						<span>{{$page_product->product_custom_field1??''}}&nbsp;</span></div>
 
 					<div style="width:65%;font-weight: bold;display: flex;justify-content: space-between;align-items: center;"><span style="font-size:10px">MRP.</span> 
-					<div style="font-size:13px;width:70%;">₹ <span style="text-decoration:line-through;font-size:16px;">{{round($page_product->mrp_inc_tax)}}</span></div></div>
+					<div style="font-size:13px;width:70%;">₹ <span style="text-decoration:@if(isset($print['show_sale_price']))line-through; @endif font-size:16px;">{{round($page_product->mrp_inc_tax)}}</span></div></div>
 
 				</div>
 
@@ -118,8 +118,11 @@
 					<div style="width:35%;display: flex;word-break:break-word;font-size: 7px;padding:2px;align-items: center;flex-wrap: wrap;">
 						<span style="font-weight:bold;display: block;">Size</span><div style="width:100%">{{$page_product->product_custom_field2??''}}</div></div>
 
+						@if(isset($print['show_sale_price']))
+
 					<div style="width:65%;font-weight: bold;display: flex;align-items: center;justify-content: space-between;"><span style="font-size:10px">Sale</span> 
 					<div style="font-size:13px;width:70%;">₹ <span style="font-size:16px;">{{round($page_product->sell_price_inc_tax)}}</span></div></div>
+					@endif
 
 				</div>
 

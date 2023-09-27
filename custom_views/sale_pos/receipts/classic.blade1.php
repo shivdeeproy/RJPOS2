@@ -694,7 +694,7 @@ F</td></tr>
 		</div>
 		<div class=" col-xs-8 text-center" >
 		
-				<img class="center-block mt-5" style="height:80px;width:300px;" src="{{asset('img/social_qrcode.png')}}">
+				<img class="center-block mt-5" style="height:80px;width:300px;" src="{{asset('img/social_qrcode.jpeg')}}">
 			
 		</div>
 	@endif
@@ -703,3 +703,8 @@ F</td></tr>
 
 	
 </div>
+
+
+
+
+

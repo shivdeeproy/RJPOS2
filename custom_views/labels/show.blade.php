@@ -216,7 +216,7 @@
 				<div class="form-group">
 					{!! Form::label('show_sale_price', @trans( 'barcode.show_sale_price' ) . ':') !!}
 					<div class="">
-
+						
 					<input type="checkbox" value="1" checked name="print[show_sale_price]" style="width:10%;height: 25px;">
 					</div>
 				</div>

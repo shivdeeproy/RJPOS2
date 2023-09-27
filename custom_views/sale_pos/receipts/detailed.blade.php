@@ -81,7 +81,7 @@ table.tax-table > tbody >tr>td:first-child
 		</div>
 	@endif
 
-	</td><td><img class="center-block mt-5" style="height:180px;width:100%;min-width: 280px;" src="{{asset('img/social_qrcode.png')}}"></td>
+	</td><td><img class="center-block mt-5" style="height:180px;width:100%;min-width: 280px;" src="{{asset('img/social_qrcode.jpeg')}}"></td>
 
 </tr>
 
@@ -390,3 +390,4 @@ NO REFUNDS. EXCHANGE WITHIN 20 DAYS IN SALABLE CONDITION</td>
 	</tbody>
 
 </table>
+
