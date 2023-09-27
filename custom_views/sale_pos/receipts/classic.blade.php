@@ -424,11 +424,11 @@ table.table-slim >thead > tr.border-top > th {
 
                      if(isset($totalTaxesGroup[$line['tax_percent']])):
 
-                     $totalTaxesGroup[$line['tax_percent']]+=$line['tax']??0;
+                     $totalTaxesGroup[$line['tax_percent']]+=round(($line['tax']??0),2);
 
                      else:
 
-                     $totalTaxesGroup[$line['tax_percent']]=$line['tax']??0;
+                     $totalTaxesGroup[$line['tax_percent']]=round(($line['tax']??0),2);
 
 
                      endif;
@@ -440,14 +440,14 @@ table.table-slim >thead > tr.border-top > th {
 						<td>{{$lindex+1}}</td>
 						
 					
-						<td class="text-right">{{$line['mrp_inc_tax']??' '}}</td>
+						<td class="text-right">{{round($line['mrp_inc_tax'],2)}}</td>
 						
 						
 							<td class="text-right">
 
 								@php
 
-								$discount=($line['mrp_inc_tax']-$line['unit_price_before_discount_uf']);
+								$discount=($line['mrp_inc_tax']-$line['unit_price_inc_tax_uf']);
 
 								$totalDiscount=$totalDiscount+(($discount?$discount:0)*$line['quantity']);
 
@@ -463,7 +463,7 @@ table.table-slim >thead > tr.border-top > th {
 							</td>
 						
 
-						<td class="text-right">{{$line['unit_price_before_discount']}}</td>
+						<td class="text-right">{{$line['unit_price_inc_tax']}}</td>
 
 						<td class="text-right">{{$line['line_total']}}</td>
 
@@ -488,7 +488,7 @@ table.table-slim >thead > tr.border-top > th {
 						</td>
 
 						<td class="text-right">{{$line['hsn']?$line['hsn']:'NA'}}</td>
-						<td class="text-right">{{$line['tax_percent']?$line['tax_percent'].'%':''}}</td>
+						<td class="text-right">{{$line['tax_percent']?round($line['tax_percent'],2).'%':''}}</td>
 						<td class="text-right"></td>
 
 
@@ -574,7 +574,7 @@ table.table-slim >thead > tr.border-top > th {
 
 				<tr class="font-large">
 
-					<td colspan="5">CASH={{$receipt_details->total_paid}}</td>
+					<td colspan="5">{{strtoupper($receipt_details->payments[0]['method'])}}={{$receipt_details->total_paid}}</td>
 					
 					
 
@@ -699,6 +699,3 @@ F</td></tr>
 
 	
 </div>
-
-
-
