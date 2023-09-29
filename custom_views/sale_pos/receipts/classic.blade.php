@@ -574,9 +574,22 @@ table.table-slim >thead > tr.border-top > th {
 
 				<tr class="font-large">
 
-					<td colspan="5">{{strtoupper($receipt_details->payments[0]['method'])}}={{$receipt_details->payments[0]['amount']}}</td>
+					<!-- <td colspan="5">{{strtoupper($receipt_details->payments[0]['method'])}}={{$receipt_details->payments[0]['amount']}}</td> -->
 					
+		 <td colspan="5">
+
+					 @foreach($receipt_details->payments as $payment)
+
 					
+
+
+					{{$payment['method']}} = {{$payment['amount']??''}}</br>
+
+		
+@endforeach
+</td>
+
+
 
 
 				</tr>
