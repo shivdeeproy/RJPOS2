@@ -81,7 +81,7 @@ table.tax-table > tbody >tr>td:first-child
 		</div>
 	@endif
 
-	</td><td><img class="center-block mt-5" style="height:180px;width:100%;min-width: 280px;" src="{{asset('img/_qrcode.jpeg')}}"></td>
+	</td><td><img class="center-block mt-5" style="height:180px;width:100%;min-width: 280px;" src="{{asset('img/social_qrcode.jpeg')}}"></td>
 
 </tr>
 
@@ -225,39 +225,38 @@ table.tax-table > tbody >tr>td:first-child
 
 					@php
 
-					$paymentMethods=['Cash','Card','Wallet'];
-
-					
+				
+					 $counter=1;
 
 					 foreach($receipt_details->payments as $payment):
 
-					 if(isset($payment['method'])=='Cash'):
+					 $counter++;
 
-					 $cashAmount=$payment['amount'];
+					 @endphp
 
-					 elseif(isset($payment['method'])=='Wallet'):
 
-					 $walletAmount=$payment['amount'];
 
-					 elseif(isset($payment['method'])=='Card'):
-					 
-					 $cardAmount=$payment['amount'];
+					 <td colspan="">{{$payment['method']}} = {{$payment['amount']??''}}</td>
 
-					 endif;
+				@if(count($receipt_details->payments)-$counter)
 
+				<td colspan="{{count($receipt_details->payments)-$counter}}">&nbsp;</td>
+
+
+				@endif
+
+					
+               @php
 
 					 endforeach;
 
 
 
+
+
 					  @endphp
 
-					  <td colspan="2">@if(isset($cashAmount))Cash = {{$cashAmount??''}} @endif</td>
-
-					  <td>@if(isset($cardAmount)) Card = {{$cardAmount??''}} @endif</td>
-
-
-					  <td colspan="2">@if(isset($walletAmount)) Wallet = {{$walletAmount??''}} @endif</td>
+				
 
 					<td colspan="2">Balance = {{$receipt_details->total_due??''}}</td>
 
@@ -390,4 +389,3 @@ NO REFUNDS. EXCHANGE WITHIN 20 DAYS IN SALABLE CONDITION</td>
 	</tbody>
 
 </table>
-

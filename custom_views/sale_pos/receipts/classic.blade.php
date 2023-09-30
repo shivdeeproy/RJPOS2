@@ -574,9 +574,22 @@ table.table-slim >thead > tr.border-top > th {
 
 				<tr class="font-large">
 
-				<td colspan="5">{{strtoupper($receipt_details->payments[0]['method'])}}={{$receipt_details->payments[0]['amount']}}</td>
+					<!-- <td colspan="5">{{strtoupper($receipt_details->payments[0]['method'])}}={{$receipt_details->payments[0]['amount']}}</td> -->
 					
+		 <td colspan="5">
+
+					 @foreach($receipt_details->payments as $payment)
+
 					
+
+
+					{{$payment['method']}} = {{$payment['amount']??''}}</br>
+
+		
+@endforeach
+</td>
+
+
 
 
 				</tr>
@@ -685,12 +698,12 @@ F</td></tr>
 			@endif
 			
 			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
-				<img class="center-block mt-10" style="height:60px; width: auto;" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
+				<img class="center-block mt-10" style="height:50px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
 			@endif
 		</div>
 		<div class=" col-xs-8 text-center" >
 		
-				<img class="center-block mt-5" style="height:100px;width:auto;" src="{{asset('img/social_qrcode.png')}}">
+				<img class="center-block mt-5" style="height:80px;width:300px;" src="{{asset('img/social_qrcode.jpeg')}}">
 			
 		</div>
 	@endif
@@ -699,7 +712,3 @@ F</td></tr>
 
 	
 </div>
-
-
-
-
