@@ -81,7 +81,7 @@ table.tax-table > tbody >tr>td:first-child
 		</div>
 	@endif
 
-	</td><td><img class="center-block mt-5" style="height:180px;width:100%;min-width: 280px;" src="{{asset('img/social_qrcode.png')}}"></td>
+	</td><td><img class="center-block mt-5" style="height:180px;width:auto;min-width:280px;" src="{{asset('img/social_qrcode.png')}}"></td>
 
 </tr>
 
@@ -303,7 +303,7 @@ table.tax-table > tbody >tr>td:first-child
 					@endforeach
 							<td colspan="2" style="width:20%; padding: 10px;border: none;" rowspan="5">
 			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
-				<img class="center-block mt-10" style="height:100px;width:100%;" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
+				<img class="center-block mt-10" style="height:100px;width:auto;" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
 			@endif
 		</td>		
 
