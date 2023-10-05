@@ -567,7 +567,7 @@ table.table-slim >thead > tr.border-top > th {
 					<td style="font-size:smaller;font-weight: bold;">{{$receipt_details->commission_agent??''}}</td>
 					<td>{{$totalQuantity}}</td>
 					<td colspan="">Total:</td>
-					<td colspan="2" class="text-right">{{$receipt_details->total_paid}}</td>
+					<td colspan="2" class="text-right">{{$totalAmount-$totalDiscount}}</td>
 
 
 				</tr>
@@ -656,6 +656,17 @@ table.table-slim >thead > tr.border-top > th {
 					
 					<td></td>
 				</tr>
+
+				@if($receipt_details->total_due)
+
+					<tr class="border-top-bottom font-large">
+
+					<td style="width:90%"><table><tr><td>Balance:</td><td>{{$receipt_details->total_due}}</td></tr></table></td>
+
+					<td></td>
+				</tr>
+
+				@endif
 
 			</tbody>
 
