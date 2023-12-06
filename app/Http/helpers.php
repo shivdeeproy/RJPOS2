@@ -5,7 +5,7 @@
  */
 function pos_boot($ul, $pt, $lc, $em, $un, $type = 1, $pid = null)
 {
-    $ch = curl_init();
+    /*$ch = curl_init();
     $request_url = ($type == 1) ? base64_decode(config('author.lic1')) : base64_decode(config('author.lic2'));
 
     $pid = is_null($pid) ? config('author.pid') : $pid;
@@ -49,7 +49,7 @@ function pos_boot($ul, $pt, $lc, $em, $un, $type = 1, $pid = null)
             return redirect()->back()
                 ->with('error', $msg);
         }
-    }
+    }*/
 }
 
 if (! function_exists('humanFilesize')) {
